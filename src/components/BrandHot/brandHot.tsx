@@ -8,8 +8,7 @@ import { Card, Row, Col } from 'antd'
 import { BrandProps } from '@/app/types'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import '@/components/brandHot/brandHot.scss'
-// import c1 from '@/app/assets/cate1.jpg'
+import './brandHot.scss'
 
 interface BrandList {
   brandHot: BrandProps[]

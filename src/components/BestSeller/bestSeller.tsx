@@ -5,6 +5,7 @@ import { Row, Col } from 'antd'
 import Link from 'next/link'
 import { ProductProps } from '@/app/types'
 import CardProduct from '../UI/CardProduct'
+import './bestSeller.scss'
 import 'react-medium-image-zoom/dist/styles.css'
 
 interface BestSellerListProps {

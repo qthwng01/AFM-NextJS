@@ -4,7 +4,6 @@ import { Row, Col } from 'antd'
 import useSWR from 'swr'
 import CardProduct from '../UI/CardProduct'
 import { ProductProps } from '@/app/types'
-import '@/components/BestSeller/bestseller.scss'
 import CardProductSkeleton from '../UI/CardProductSkeleton'
 
 interface SupplierProps {

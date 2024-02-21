@@ -6,8 +6,6 @@ import Link from 'next/link'
 import { ProductProps } from '@/app/types'
 import CardProduct from '../UI/CardProduct'
 import 'react-medium-image-zoom/dist/styles.css'
-// import prod from '@/app/assets/prod.jpg'
-import '@/components/BestSeller/bestseller.scss'
 
 interface BestSellerListProps {
   bestSeller: ProductProps[]

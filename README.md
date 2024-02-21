@@ -2,13 +2,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Tech
 Backend: API by Acesstrade.
+
 Frontend: NextJS, Typescript, Ant Design, SCSS.
+
 Libs: Firebase.
 
 ## Overview
-Giao diện: chỉ desktop
-Repsonsive: không
+Giao diện: Chỉ desktop
+
+Repsonsive: Không
+
 Tính năng cơ bản: đăng ký, đăng nhập, đăng nhập qua google, thêm vào giỏ hàng, mua hàng, đặt hàng, xem đơn hàng, xem chi tiết. 
+
 Tính năng đang cập nhật: search, push notification, xem hoá đơn, quên mật khẩu, menu, danh sách brand... 
 
 ## Deploy on Vercel

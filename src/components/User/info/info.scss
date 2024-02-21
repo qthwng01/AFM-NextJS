@@ -1,0 +1,48 @@
+.info_ly {
+  background: #f1f1f1;
+  padding: 2rem;
+}
+
+.info_detail {
+  border: 1px solid lightgray;
+  border-radius: 12px;
+  padding: 20px 10px 10px 0;
+  background: #fff;
+}
+
+.right_info {
+  border: 1px solid lightgray;
+  border-radius: 12px;
+  padding: 15px 0 0 0;
+  background: #fff;
+}
+
+.top_info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 10px;
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.bottom_info {
+  padding: 10px 20px;
+
+  p {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .logout {
+    border-top: 1px solid lightgray;
+    margin-top: 10px;
+    padding-top: 10px;
+    text-align: center;
+  }
+}

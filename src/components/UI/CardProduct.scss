@@ -1,0 +1,78 @@
+.card_product {
+  width: 100%;
+  height: 100%;
+  min-height: 288px;
+  max-height: 288px;
+}
+
+.image_product {
+  display: flex;
+  justify-content: center;
+
+  .image_product_main {
+    max-width: 160px;
+    height: auto;
+    min-height: 160px;
+    max-height: 160px;
+    object-fit: cover;
+  }
+}
+
+.description_product {
+  margin-top: 5px;
+
+  .name_product {
+    height: 38px;
+    margin-bottom: 10px;
+
+    a {
+      color: unset;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    a:hover {
+      color: var(--primary-color);
+      transition: 5ms all ease-in-out;
+    }
+
+    h2 {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+  }
+  .price_product {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #3d3f40;
+    padding-bottom: 4px;
+  }
+
+  .old_price {
+    .content_info_discount {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .old_price_first {
+        font-size: inherit;
+        font-weight: 600;
+        text-decoration: line-through;
+        color: #7f7f7f;
+      }
+      .badge_discount {
+        border: 1px solid #e30000;
+        border-radius: 10px;
+        padding: 1px 8px;
+        color: #fff;
+        font-size: inherit;
+        font-weight: 600;
+        background-color: #e30000;
+      }
+    }
+  }
+}

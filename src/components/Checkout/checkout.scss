@@ -1,0 +1,38 @@
+.checkout_ly {
+  background: #f1f1f1;
+  padding: 2rem;
+}
+
+.checkout_inside {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.bill_info {
+  padding: 0 6rem 0 6rem;
+
+  h2 {
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 28px;
+    font-weight: 800;
+  }
+  .alert_order {
+    margin-bottom: 1rem;
+  }
+}
+
+.submit_bill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -20px;
+
+  .button_confirm {
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}

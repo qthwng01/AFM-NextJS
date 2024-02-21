@@ -1,0 +1,39 @@
+.profile_ly {
+}
+
+.profile_inside {
+}
+
+.name_profile,
+.email_profile,
+.pass_profile,
+.mail_profile {
+  padding: 10px 0;
+}
+
+.pass_profile,
+.mail_profile {
+  margin: 10px 0;
+  border: 1px solid lightgray;
+  max-width: 35%;
+  border-radius: 10px;
+  padding: 10px;
+
+  span {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  a {
+    font-size: 14px;
+    font-weight: 700;
+    color: green;
+    float: right;
+  }
+}
+
+.change_password {
+  padding-top: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--primary-color);
+}

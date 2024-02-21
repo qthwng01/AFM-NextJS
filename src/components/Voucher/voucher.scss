@@ -1,0 +1,125 @@
+.voucher_ly {
+  margin-top: 2rem;
+  border: 1px solid #f8d691;
+  border-radius: 10px;
+  background: floralwhite;
+  width: 100%;
+  min-height: 150px;
+}
+
+.voucher_title {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 2px solid #03c78c;
+  }
+
+  .show_voucher {
+    svg {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+.voucher_items {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.voucher_detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  max-width: 440px;
+  margin: 0 8px;
+}
+
+.voucher_detail_left {
+  width: 220px;
+  grid-gap: 2px;
+  gap: 2px;
+  min-height: 90px;
+  background: #fff;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  padding: 8px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+
+  p:nth-child(1) {
+    font-size: 14px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  p:nth-child(2) {
+    font-size: 14px;
+    font-weight: 400;
+    color: #f04438;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  p:nth-child(3) {
+    font-size: 14px;
+    font-weight: 400;
+    color: #0097e6;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.voucher_detail_right {
+  width: 180px;
+  min-height: 90px;
+  grid-gap: 2px;
+  gap: 2px;
+  background: #f7f7f7;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  white-space: nowrap;
+  padding: 8px;
+  border-left: 4px dotted #dddedf;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+
+  button {
+    padding: 6px 15px 6px 20px;
+    border: 1px solid #03c78c;
+    border-radius: 4px;
+    background: #03c78c;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  p:nth-child(2) {
+    font-size: 12px;
+    line-height: 20px;
+    color: gray;
+  }
+
+  p:nth-child(3) {
+    font-size: 12px;
+    color: #03c78c;
+    font-weight: 600;
+  }
+}

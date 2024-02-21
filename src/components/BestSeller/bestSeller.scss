@@ -1,0 +1,76 @@
+.best_seller_ly {
+  margin: 1.5rem 0;
+}
+
+.best_selle_title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 2px solid #03c78c;
+  }
+
+  a {
+    width: 25px;
+    height: 25px;
+  }
+
+  // h2 {
+  //   display: inline-block;
+  //   position: relative;
+  // }
+
+  // h2:after {
+  //   content: '';
+  //   position: absolute;
+  //   width: 100%;
+  //   transform: scaleX(0);
+  //   height: 4px;
+  //   bottom: -4px;
+  //   left: 0;
+  //   background-color: #03c78c;
+  //   transform-origin: bottom right;
+  //   transition: transform 0.25s ease-out;
+  // }
+
+  // h2:hover:after {
+  //   transform: scaleX(1);
+  //   transform-origin: bottom left;
+  // }
+}
+
+.best_seller {
+  border: 1px solid #03c78c;
+  border-radius: 10px;
+  padding: 10px;
+  background: #03c78c;
+
+  .ant-card-body {
+    height: 100%;
+    min-height: 300px;
+    max-height: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    transition: all 0.3s ease-out;
+    padding: 14px;
+  }
+
+  .card_product_best_seller {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    max-height: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    transition: all 0.3s ease-out;
+  }
+}

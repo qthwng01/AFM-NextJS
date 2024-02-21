@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  reactStrictMode: false,
+  swcMinify: true,
+  images: {
+    domains: ['cdn.sanity.io', 'images.unsplash.com', 'static.dimuadi.vn', 'i.ibb.co', 'img.icons8.com'],
+  },
+}
 
 module.exports = nextConfig

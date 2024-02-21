@@ -1,0 +1,16 @@
+import { initializeApp, getApps, cert } from 'firebase-admin/app'
+
+const firebaseAdminConfig = {
+  credential: cert({
+    projectId: 'afm-project-9f939',
+    clientEmail: 'firebase-adminsdk-vid5o@afm-project-9f939.iam.gserviceaccount.com',
+    privateKey:
+      '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCRT5HG20BreM0h\nMQXYKs449Cm2pBTdXPmsuTkay9AUzffvjVGiW5XOWQinGasMTwCZYgTdLz8sk/G0\nN93boaxzPOY8YGVYSNgImbFGsD3CHIzDMLQerLMgTOtazDkeSRLfTgI1iVSzZKmF\nNY+hl/eJNflYhJj5LZ11yjNqswfX9k5a2d/4sxWEihVXImSoj8zD99WdiDwsw9ck\nnAlAtuku5D1uwHiLZmP3WAAc/wrZetxU+Ntdyg75p0fEwxuf2hwVDQxYm73+usxG\nx0MNfe6yEzHmduJvFvmdQn+4oHO5PiTxH6RmHmCYZ7vT7PHZ37/PWiH1xNx0b+yc\nqBZC/MvVAgMBAAECggEAFEk4t3uD6I0OjB/xKi69p/9UNHp/LDEu7QFVussx0zm2\n75M5zpH9HbfZyKRBeCAuW/tuZOeT6PgFcgyrlR4iulrJ5KtrcpIG0NqOAGmZ0ZfV\nQemyd6bSAgQjBkPFBJicgR69mbZApCO9M8rYsK1LwjTOCODID19iIF/YYkC4q1oy\nV25KYmPhfQikt12x4x8ehBkSII9veFx3DT1Qf495lnkJrCS68TUOgC0puEcdH2yD\nsNTTEED6o6o42Hk2VW+Cj9zfTlJVaOWIT4gSiSRYF/dV2Eqzb2B3ylauGE21NWHb\ngPW+MGxX36SJZ00rkaUJSz5uwRYOO9QTjF7E5bjQqQKBgQDBNXCjUGGsc6LfurH8\nc3TuN5YI1YAZy2PpjFSNgF3vZkxcKKLZdNAz8CGGXhwkCjmBRReVJX20EzrKCAAf\nBfJutbgt24qckPcparQh0n8YoV9Gc17YuctFzRRjXzhc5yeN7gj2iAgY8juY5tbM\n7DejUL5aJYV0h8SWPpguqyhbPQKBgQDAiR9m2NCOkbbjH99nxZpNaGPHvcETvsvU\ngTEu70AhxqxQzIBgQL8IgZvPQzQW8R8spZT16fOskF+0LMByJl05HgNWHQxTUYUC\nmZUeN3A00b3oM0a3iNLSff7TXqbFoDt1EeW3WvEbR48fd9NPQsxXN7iCba9W+Loo\nDec92ZsceQKBgAStuZuKz8KwTipix/qYBSXbnLt8CA0X2sSGDGocyKmKbaDxrvfb\nF0uargUl9EJ/KONTe/21mbSpnovT48TcjQFXTy11GocuD34mQlRrV36OMdNv6cUP\nwrde/vZlEOVXB6MtN3RY2PFZtE3AkUUHF1XSF7nxHKk0vHLy8xZ2OJT1AoGBAINI\nPKg1KKg+BXWDEyNAIwGrL3ZQFeovy+5/lRjKvHELdg22E8cN/vR+484Epe0KxtX7\npcG0n5nH6+oAJczwCdrbcyzxq6jYShjGvl4XMSRi69n7tLmKyy4KCYr43ECfDEu8\nQ2Wt1f9i4N11KBnAk3LZJK+SuN9VxCFxsX6D9XcJAoGAYYPYM6BtNVNaRbq/9I81\nCFhitPQnfAbuJf9bwWksrGRBFDw3Rz6TDFIM9kggwEmiobtIxiozO5fmjhJXo9Vd\nGV88Gx3HCi0Lc5LPQf55Beln+o39PAddL+tkdXgGPyOnbHHzEZ14S7ZycH3RJ/yR\ngV2W70nz0TWYystvtm3KWuQ=\n-----END PRIVATE KEY-----\n',
+  }),
+}
+
+export function customInitApp() {
+  if (getApps().length <= 0) {
+    initializeApp(firebaseAdminConfig)
+  }
+}

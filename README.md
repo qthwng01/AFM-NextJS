@@ -6,10 +6,10 @@ Frontend: NextJS, Typescript, Ant Design, SCSS.
 Libs: Firebase.
 
 ## Overview
-Giao diện: chỉ Desktop
-Repsonsive: Không
-Tính năng cơ bản: Đăng ký, Đăng nhập, Đăng nhập qua Google, Thêm vào giỏ hàng, Mua hàng, Đặt hàng, Xem đơn hàng, Xem chi tiết. 
-Tính năng đang cập nhật: Search, Push notification, Xem hoá đơn, Quên mật khẩu, Menu, Danh sách brand... 
+Giao diện: chỉ desktop
+Repsonsive: không
+Tính năng cơ bản: đăng ký, đăng nhập, đăng nhập qua google, thêm vào giỏ hàng, mua hàng, đặt hàng, xem đơn hàng, xem chi tiết. 
+Tính năng đang cập nhật: search, push notification, xem hoá đơn, quên mật khẩu, menu, danh sách brand... 
 
 ## Deploy on Vercel
 

@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Tech
-Backend: API by Acesstrade.
+## Tech Stack
+Backend: API by Accesstrade.
 
 Frontend: NextJS, Typescript, Ant Design, SCSS.
 

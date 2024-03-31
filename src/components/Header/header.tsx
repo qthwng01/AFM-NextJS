@@ -57,7 +57,7 @@ function Header() {
   const fetcher = (url: string) => {
     return fetch(url).then((res) => res.json())
   }
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_URL_CATEGORY}`, fetcher, {
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

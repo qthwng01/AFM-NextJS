@@ -14,7 +14,7 @@ const ProductSuggesItem = ({ id }: IdProps) => {
   const [dataPSI, setData] = useState<ProductProps[]>([])
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`${process.env.NEXT_URL_PRODUCT}?category_id=${id}&page_size=10`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PRODUCT}?category_id=${id}&page_size=10`)
       if (!res.ok) {
         throw new Error('Failed to fetch BestSeller')
       }

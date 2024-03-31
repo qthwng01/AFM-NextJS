@@ -22,7 +22,7 @@ const CardProduct: FC<CardProps> = ({ id, name, thumbImage, price, priceBeforeDi
       theme={{
         token: {
           paddingLG: 12,
-          fontFamily: 'Montserrat'
+          fontFamily: '__Montserrat_417c07',
         },
       }}
     >

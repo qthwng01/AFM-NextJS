@@ -78,7 +78,7 @@ function LeftFilter() {
     data: dataCate,
     error: errorCate,
     isLoading: isLoadingCate,
-  } = useSWR(`${process.env.NEXT_URL_CATEGORY}`, fetcher, {
+  } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -89,7 +89,7 @@ function LeftFilter() {
     data: dataBrand,
     error: errorBrand,
     isLoading: isLoadingBrand,
-  } = useSWR(`${process.env.NEXT_URL_BRAND}?page=1&page_size=${pages}`, fetcher, {
+  } = useSWR(`${process.env.NEXT_PUBLIC_URL_BRAND}?page=1&page_size=${pages}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -146,7 +146,12 @@ function LeftFilter() {
         <div className="filter_list_brand">
           <h4>Thương hiệu</h4>
           <div className="brand_search">
-            <Search placeholder="Tìm theo tên..." style={{ width: 280 }} onChange={(e) => setSearchTerm(e.target.value)} value={searchTerm} />
+            <Search
+              placeholder="Tìm theo tên..."
+              style={{ width: 280 }}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
+            />
           </div>
           <div className="brand_search_list">
             <Radio.Group onChange={onChangeBrand} value={brandValue}>

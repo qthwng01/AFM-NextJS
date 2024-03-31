@@ -43,7 +43,7 @@ function RightProduct() {
   const fetcher = (url: string) => fetch(url).then((res) => res.json())
   // Fetching Products
   const { data, error, isLoading } = useSWR(
-    `https://apis.dimuadi.vn/d2c-service/product?brand_id=${brandValue}${
+    `${process.env.NEXT_PUBLIC_URL_PRODUCT}?brand_id=${brandValue}${
       categoryValue !== '' ? `&category_id=${categoryValue}` : ''
     }&page=${pageValue}&page_size=12`,
     fetcher,

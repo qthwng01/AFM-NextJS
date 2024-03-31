@@ -5,13 +5,13 @@ import { GoogleAuthProvider } from 'firebase/auth'
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCC-rN8qCoEV7F2vGdvPnl_wYsEHfbw3yg',
-  authDomain: 'afm-project-9f939.firebaseapp.com',
-  projectId: 'afm-project-9f939',
-  storageBucket: 'afm-project-9f939.appspot.com',
-  messagingSenderId: '991630788392',
-  appId: '1:991630788392:web:a2f4eace388655bece321d',
-  measurementId: 'G-4SGKTPNLDD',
+  apiKey: `${process.env.NEXT_PUBLIC_FB_CF_API_KEY}`,
+  authDomain: `${process.env.NEXT_PUBLIC_FB_CF_AUTH_DOMAIN}`,
+  projectId: `${process.env.NEXT_PUBLIC_FB_CF_PROJECTID}`,
+  storageBucket: `${process.env.NEXT_PUBLIC_FB_CF_STORAGE_BUCKET}`,
+  messagingSenderId: `${process.env.NEXT_PUBLIC_FB_CF_MESSAGING_SENDER_ID}`,
+  appId: `${process.env.NEXT_PUBLIC_FB_CF_APPID}`,
+  measurementId: `${process.env.NEXT_PUBLIC_FB_CF_MEASUREMENT_ID}`,
 }
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)

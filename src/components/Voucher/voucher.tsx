@@ -18,7 +18,7 @@ function Voucher() {
     }).then((res) => res.json())
   }
 
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_URL_COUPON}`, fetcher, {
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL_COUPON}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

@@ -22,8 +22,8 @@ interface OrderProps {
   district: string
   ward: string
   address: string
-  total: number,
-  status: string,
+  total: number
+  status: string
   created_at: string
   updated_at: string
   data: CartProps[]
@@ -52,7 +52,7 @@ function CheckoutComponent() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch(`https://vapi.vnappmob.com/api/province/`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_PROVINCE}`)
         const result = await response.json()
         console.log(result)
         setDataP(result?.results)
@@ -72,7 +72,7 @@ function CheckoutComponent() {
     })
     async function getData() {
       try {
-        const response = await fetch(`https://vapi.vnappmob.com/api/province/district/${valueP}`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_DISTRICT}/${valueP}`)
         const result = await response.json()
         setDataD(result?.results)
       } catch (error) {
@@ -88,7 +88,7 @@ function CheckoutComponent() {
     })
     async function getData() {
       try {
-        const response = await fetch(`https://vapi.vnappmob.com/api/province/ward/${valueD}`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_WARD}/${valueD}`)
         const result = await response.json()
         setDataW(result?.results)
       } catch (error) {
@@ -157,7 +157,7 @@ function CheckoutComponent() {
       ward: ward,
       address: address,
       total: tPrice,
-      status: "pending",
+      status: 'pending',
       created_at: new Date().toLocaleString(),
       updated_at: new Date().toLocaleString(),
       data: cartItems,

@@ -34,7 +34,7 @@ function TopProduct() {
   }, [pageId])
 
   // Fetching Products
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_URL_PRODUCT}/top?page_size=18&page=${pageValue}`, fetcher, {
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL_PRODUCT}/top?page_size=18&page=${pageValue}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

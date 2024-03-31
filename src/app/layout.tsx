@@ -1,12 +1,15 @@
 import type { Metadata } from 'next'
-//import { Inter } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import '@/app/styles/globals.scss'
 import Header from '@/components/Header/header'
 import Footer from '@/components/Footer/footer'
 import { ReduxProviders } from '@/store/provider'
 import StyledComponentsRegistry from '@/utils/AntdRegistry'
 
-//const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({ 
+  subsets: ['latin', 'vietnamese'], 
+  variable: '--font-montserrat' 
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,15 +18,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className="scroll-smooth">
+    <html lang="vi" className={`${montserrat.variable} scroll-smooth`}>
       <ReduxProviders>
         <body>
           <StyledComponentsRegistry>
-              <div className="main_layout">
-                <Header />
-                {children}
-                <Footer />
-              </div>
+            <div className="main_layout">
+              <Header />
+              {children}
+              <Footer />
+            </div>
           </StyledComponentsRegistry>
         </body>
       </ReduxProviders>

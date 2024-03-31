@@ -9,7 +9,7 @@ import './productSug.scss'
 
 const ProductSuggestion = () => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json())
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_URL_CATEGORY}`, fetcher, {
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -41,7 +41,7 @@ const ProductSuggestion = () => {
                   },
                 },
                 token: {
-                  fontFamily: 'Montserrat',
+                  fontFamily: '__Montserrat_Fallback_417c07',
                 },
               }}
             >

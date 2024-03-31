@@ -15,7 +15,7 @@ const ProductOfSupplier = ({ companyId }: SupplierProps) => {
     return fetch(url).then((res) => res.json())
   }
   const { data, error, isLoading } = useSWR(
-    `${process.env.NEXT_URL_PRODUCT}?page=1&page_size=10&supplier_id=${companyId}&sort_types=total_selling`,
+    `${process.env.NEXT_PUBLIC_URL_PRODUCT}?page=1&page_size=10&supplier_id=${companyId}&sort_types=total_selling`,
     fetcher,
     {
       revalidateIfStale: false,

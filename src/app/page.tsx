@@ -5,7 +5,7 @@ import Slider from '@/components/Slider/slider'
 import Voucher from '@/components/Voucher/voucher'
 
 async function getBestSeller() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PRODUCT}/top?page_size=6&page=1`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BEST_SELLER}?page_size=6&page=1`)
   if (!res.ok) {
     throw new Error('Failed to fetch BestSeller')
   }

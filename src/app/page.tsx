@@ -3,7 +3,6 @@ import BrandHot from '@/components/BrandHot/brandHot'
 import ProductSuggestion from '@/components/ProductSuggestion/productSug'
 import Slider from '@/components/Slider/slider'
 import Voucher from '@/components/Voucher/voucher'
-import { ConfigProvider } from 'antd'
 
 async function getBestSeller() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PRODUCT}/top?page_size=6&page=1`)

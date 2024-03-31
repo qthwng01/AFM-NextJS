@@ -1,38 +1,64 @@
 .footer_ly {
-  padding-top: 4rem;
+  background-color: rgb(255,255,255);
 }
 
 .footer_top {
-  border-top: 1px solid lightgray;
-  padding-top: 2rem;
+  padding-top: 4.5rem;
 }
 
 .footer_top_inside {
   h4 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 24px;
     margin: 0 0 10px;
     color: rgba(10, 10, 10, 0.96);
   }
-  ul {
-    margin-bottom: 10px;
-
-    li {
-      display: block;
-      padding-bottom: 8px;
-      position: relative;
+  .footer_list .footer_item {
+    color: rgb(10 10 10 / 76%);
+    font-size: 16px;
+    font-weight: 500;
+    margin: 1rem 0;
+  }
+  p {
+    color: rgb(10 10 10 / 76%);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .form_top_inside {
+    .newsletter {
+      padding: 10px;
+      border: 2px solid var(--primary-color);
+      border-radius: 4px;
+      margin-right: 0.5rem;
+      width: 65%;
+      min-width: 65%;
+      font-weight: 600;
+    }
+    .submit_form {
+      padding: 10px 20px 10px 20px;
+      border: 1px solid var(--primary-color);
+      background: var(--primary-color);
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
     }
   }
 }
 
 .footer_bottom {
   margin-top: 2rem;
-  padding: 20px 0 20px 0;
+  padding: 2rem 0 4rem 0;
   border-top: 1px solid lightgray;
 
   .ant-row {
     align-items: center;
+  }
+  .p_footer_bottom_left, .p_footer_bottom_right {
+    font-size: 18px;
   }
 }
 
@@ -40,6 +66,7 @@
   display: inline-flex;
   align-items: center;
   flex-wrap: nowrap;
+  float: right;
 }
 
 .social_list {

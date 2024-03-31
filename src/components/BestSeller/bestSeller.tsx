@@ -14,8 +14,8 @@ interface BestSellerListProps {
 
 function BestSeller({ bestSeller }: BestSellerListProps) {
   return (
-    <div className="best_seller_ly">
-      <div className="best_selle_title">
+    <div className="best_seller_ly container">
+      <div className="best_seller_title">
         <h2>Sản phẩm bán chạy</h2>
         <Link href={'/top-product'}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

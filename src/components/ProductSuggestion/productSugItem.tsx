@@ -3,19 +3,18 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'antd'
 import { ProductProps } from '@/app/types'
-// import prod from '@/app/assets/prod.jpg'
-import '@/components/ProductSuggestion/productSug.scss'
 import CardProduct from '../UI/CardProduct'
+import '@/components/ProductSuggestion/productSug.scss'
 
 interface IdProps {
   id: number
 }
 
-function ProductSuggesItem({ id }: IdProps) {
+const ProductSuggesItem = ({ id }: IdProps) => {
   const [dataPSI, setData] = useState<ProductProps[]>([])
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`https://apis.dimuadi.vn/d2c-service/product?category_id=${id}&page_size=10`)
+      const res = await fetch(`${process.env.NEXT_URL_PRODUCT}?category_id=${id}&page_size=10`)
       if (!res.ok) {
         throw new Error('Failed to fetch BestSeller')
       }
@@ -31,7 +30,7 @@ function ProductSuggesItem({ id }: IdProps) {
         {dataPSI?.map((item) => (
           <Col span={4} key={item.id}>
             <CardProduct
-              className='card_product_sug'
+              className="card_product_sug"
               id={item.id}
               name={item.name}
               thumbImage={item.thumbImage}

@@ -6,8 +6,8 @@ import Link from 'next/link'
 import { Row, Col, Button, ConfigProvider, InputNumber, Empty, Select, Input, Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { CartProps } from '@/app/types'
-import { formatCurrency } from '@/ultis/formatCurrency'
-import { convertSlug } from '@/ultis/convertSlugUrl'
+import { formatPrice } from '@/utils/formatCurrency'
+import { convertSlug } from '@/utils/convertSlugUrl'
 import { useRouter } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '@/store/hook/hooks'
 import { increaseAmount, decreaseAmount, removeItem, deleteAll } from '@/store/slices/cartSlice'
@@ -128,12 +128,12 @@ function Cart() {
                         </Col>
                         <Col span={4}>
                           <div className="price">
-                            <span>{formatCurrency(item.productPrice)}</span>
+                            <span>{formatPrice(item.productPrice)}</span>
                           </div>
                         </Col>
                         <Col span={4}>
                           <div className="total">
-                            <span>{formatCurrency(item.productPrice * item.quantity)}</span>
+                            <span>{formatPrice(item.productPrice * item.quantity)}</span>
                           </div>
                         </Col>
                         <Col span={2}>
@@ -160,7 +160,7 @@ function Cart() {
                 <div className="cart_right_bottom">
                   <div className="cart_right_detail">
                     <span className="count_items">Số lượng: {quantity}</span>
-                    <span className="t_price">{formatCurrency(tPrice)}</span>
+                    <span className="t_price">{formatPrice(tPrice)}</span>
                   </div>
                   <div className="shipping">
                     <p>Phương thức thanh toán</p>
@@ -176,7 +176,7 @@ function Cart() {
                   <div className="line_through"></div>
                   <div className="checkout">
                     <span className="total_count">Tạm tính</span>
-                    <span className="total_value">{formatCurrency(tPrice)}</span>
+                    <span className="total_value">{formatPrice(tPrice)}</span>
                     <Button onClick={processCheckout} htmlType="button" style={{ width: '100%' }} className="checkout_button" type="primary">
                       Tiếp tục
                     </Button>

@@ -12,19 +12,14 @@ import '@/components/Slider/slider.scss'
 import picRight from '@/app/assets/pic-right.jpg'
 import picLeft from '@/app/assets/pic-left.jpg'
 
-function Slider() {
-
+const Slider = () => {
   return (
     <>
-      <div className="slider_ly">
+      <div className="slider_ly container">
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 24 }}>
           <Col span={16}>
             <div className="slider_first">
               <Swiper
-                // navigation={{
-                //   nextEl: '.navigation_slide',
-                //   prevEl: '',
-                // }}
                 // allowSlidePrev
                 // slidesPerView={3}
                 loop={true}

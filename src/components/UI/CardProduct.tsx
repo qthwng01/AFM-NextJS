@@ -2,8 +2,8 @@ import { Card, ConfigProvider } from 'antd'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FC } from 'react'
-import { formatCurrency } from '@/ultis/formatCurrency'
-import { convertSlug } from '@/ultis/convertSlugUrl'
+import { formatPrice } from '@/utils/formatCurrency'
+import { convertSlug } from '@/utils/convertSlugUrl'
 import './CardProduct.scss'
 
 interface CardProps {
@@ -22,6 +22,7 @@ const CardProduct: FC<CardProps> = ({ id, name, thumbImage, price, priceBeforeDi
       theme={{
         token: {
           paddingLG: 12,
+          fontFamily: 'Montserrat'
         },
       }}
     >
@@ -38,11 +39,11 @@ const CardProduct: FC<CardProps> = ({ id, name, thumbImage, price, priceBeforeDi
             </Link>
           </div>
           <div className="price_product">
-            <p>{formatCurrency(price)}</p>
+            <p>{formatPrice(price)}</p>
           </div>
           <div className="old_price">
             <p className="content_info_discount">
-              {priceBeforeDiscount > 0 ? <span className="old_price_first">{formatCurrency(priceBeforeDiscount)}</span> : ''}
+              {priceBeforeDiscount > 0 ? <span className="old_price_first">{formatPrice(priceBeforeDiscount)}</span> : ''}
               {discountAmount > 0 ? (
                 <span className="badge_discount">
                   -{discountAmount}

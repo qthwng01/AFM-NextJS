@@ -10,14 +10,15 @@ function Voucher() {
   const fetcher = (url: string) => {
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
-    headers.append('Authorization', 'Token a06MUDl98tJjjSoY_PGL4ijPrJAIFXge')
+    headers.append('Authorization', `Token ${process.env.NEXT_PUBLIC_TOKEN_KEY}`)
 
     return fetch(url, {
       method: 'GET',
       headers: headers,
     }).then((res) => res.json())
   }
-  const { data, error, isLoading } = useSWR('https://api.accesstrade.vn/v1/offers_informations/coupon?limit=3', fetcher, {
+
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_URL_COUPON}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -27,13 +28,17 @@ function Voucher() {
 
   if (isLoading) {
     return (
-      <div className="voucher_ly">
-        <Skeleton active style={{ marginTop: '10px' }} />
+      <div className="voucher_ly container">
+        <Skeleton active style={{ marginTop: '1rem' }} />
       </div>
     )
   }
 
-  return <div className="voucher_ly">{Array.isArray(getData) && getData.length > 0 ? <VoucherItems data={getData} /> : ''}</div>
+  return (
+    <div className="voucher_ly">
+      <div className="container">{Array.isArray(getData) && getData.length > 0 ? <VoucherItems data={getData} /> : ''}</div>
+    </div>
+  )
 }
 
 export default Voucher

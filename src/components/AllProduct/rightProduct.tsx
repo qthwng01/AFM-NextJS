@@ -6,8 +6,8 @@ import { Row, Col, Select, Card, Pagination, ConfigProvider } from 'antd'
 import type { PaginationProps } from 'antd'
 import useSWR from 'swr'
 import { ProductProps } from '@/app/types'
-import { formatCurrency } from '@/ultis/formatCurrency'
-import { convertSlug } from '@/ultis/convertSlugUrl'
+import { formatPrice } from '@/utils/formatCurrency'
+import { convertSlug } from '@/utils/convertSlugUrl'
 //import prod from '@/app/assets/prod.jpg'
 
 function RightProduct() {
@@ -72,8 +72,8 @@ function RightProduct() {
     <div className="product_right_ly">
       <div className="product_right_top">
         <span>
-          Hiển thị từ {data?.paging ? <strong>{data?.paging?.pageSize * data?.paging?.page}</strong> : ''} của <strong>{data?.paging?.total}</strong>{' '}
-          sản phẩm
+          Hiển thị từ {data?.paging ? <strong>{data?.paging?.pageSize * data?.paging?.page}</strong> : ''} của{' '}
+          <strong>{data?.paging?.total}</strong> sản phẩm
         </span>
         <div className="product_right_cs">
           <p>Sắp xếp theo</p>
@@ -114,10 +114,10 @@ function RightProduct() {
                       </Link>
                     </div>
                     <div className="price_all_product">
-                      <p>{formatCurrency(item.price)}</p>
+                      <p>{formatPrice(item.price)}</p>
                     </div>
                     <div className="old_price">
-                      {item.priceBeforeDiscount > 0 ? <p className="content_info_discount">{formatCurrency(item.priceBeforeDiscount)}</p> : ''}
+                      {item.priceBeforeDiscount > 0 ? <p className="content_info_discount">{formatPrice(item.priceBeforeDiscount)}</p> : ''}
                     </div>
                   </div>
                 </Card>

@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
 
   //Return to /login if don't have a session
   if (!session && !authRoutes.includes(req.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL(`/login?callbackUrl=${req.nextUrl.pathname}`, req.url))
+    return NextResponse.redirect(new URL(`/login?callbackUrl=${encodeURIComponent(req.nextUrl.pathname)}`, req.url))
   }
 
   //Return to /login if token is not authorized

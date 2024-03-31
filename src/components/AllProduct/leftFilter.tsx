@@ -78,7 +78,7 @@ function LeftFilter() {
     data: dataCate,
     error: errorCate,
     isLoading: isLoadingCate,
-  } = useSWR('https://apis.dimuadi.vn/d2c-service/category', fetcher, {
+  } = useSWR(`${process.env.NEXT_URL_CATEGORY}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -89,7 +89,7 @@ function LeftFilter() {
     data: dataBrand,
     error: errorBrand,
     isLoading: isLoadingBrand,
-  } = useSWR(`https://apis.dimuadi.vn/d2c-service/brand?page=1&page_size=${pages}`, fetcher, {
+  } = useSWR(`${process.env.NEXT_URL_BRAND}?page=1&page_size=${pages}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

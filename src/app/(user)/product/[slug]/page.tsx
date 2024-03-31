@@ -1,5 +1,5 @@
 import ProductDetail from '@/components/ProductDetail/productDetail'
-import { SplitParams } from '@/ultis/splitParams'
+import { SplitParams } from '@/utils/splitParams'
 import { Suspense } from 'react'
 import Loading from '@/app/loading'
 

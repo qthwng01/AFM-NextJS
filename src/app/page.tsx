@@ -26,11 +26,11 @@ export default async function Home() {
   //console.log(data.data)
 
   return (
-    <main className="container">
+    <main>
       <Slider />
       <BestSeller bestSeller={bestSeller?.data} />
       <BrandHot brandHot={categoryHot?.data} />
-      {/* <Voucher /> */}
+      <Voucher />
       <ProductSuggestion />
     </main>
   )

@@ -4,7 +4,6 @@ import React from 'react'
 import { Row, Col, ConfigProvider } from 'antd'
 import LeftFilter from './leftFilter'
 import RightProduct from './rightProduct'
-
 import './allProduct.scss'
 
 function AllProduct() {

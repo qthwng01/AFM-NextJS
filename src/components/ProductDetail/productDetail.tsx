@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 import { ProductDetailProps } from '@/app/types'
 import { DataServices } from '@/constants/DataServices'
-import { formatCurrency } from '@/ultis/formatCurrency'
+import { formatPrice } from '@/utils/formatCurrency'
 import Zoom from 'react-medium-image-zoom'
 import ProductOfSupplier from './productOfSupplier'
 import { useAppDispatch } from '@/store/hook/hooks'
@@ -24,7 +24,7 @@ interface ProductProps {
   data: ProductDetailProps
 }
 
-function ProductDetail({ data }: ProductProps) {
+const ProductDetail = ({ data }: ProductProps) => {
   const router = useRouter()
   const item: ProductDetailProps = data?.data
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null)
@@ -109,10 +109,10 @@ function ProductDetail({ data }: ProductProps) {
                 <br />
                 <span className="category">Category: {item?.categoryName ? item?.categoryName : 'Đang cập nhật'}</span>
                 <div className="price_discount">
-                  <span className="price_new">{formatCurrency(item?.price)}</span>
+                  <span className="price_new">{formatPrice(item?.price)}</span>
                   <br />
                   <div className="price_sale">
-                    {item?.priceBeforeDiscount > 0 ? <span className="ps_value">{formatCurrency(item?.priceBeforeDiscount)}</span> : ''}
+                    {item?.priceBeforeDiscount > 0 ? <span className="ps_value">{formatPrice(item?.priceBeforeDiscount)}</span> : ''}
                     {item?.discountAmount > 0 ? (
                       <span>
                         <Badge className="ps_amount" count={item?.discountAmount > 0 ? '-' + item?.discountAmount + '%' : ''} />
@@ -123,7 +123,11 @@ function ProductDetail({ data }: ProductProps) {
                   </div>
                 </div>
                 <div className="cacl_discount">
-                  <span>Giảm đến {formatCurrency(item?.priceBeforeDiscount - item?.price)}</span>
+                  <span>
+                    {item?.priceBeforeDiscount
+                      ? 'Giảm đến' + ' ' + formatPrice(item?.priceBeforeDiscount - item?.price)
+                      : `Giá gốc ${formatPrice(item?.price)}`}
+                  </span>
                 </div>
                 <div className="line_through"></div>
                 <div className="ship_info">

@@ -17,7 +17,7 @@ import '@/components/Header/header.scss'
 import logo from '@/app/assets/logo.png'
 import user from '@/app/assets/user.png'
 import exit from '@/app/assets/exit.png'
-import ConfirmPassword from '../User/info/profile/manage/confirmPassword'
+//import ConfirmPassword from '../User/info/profile/manage/confirmPassword'
 
 function Header() {
   const isUser = useUser()
@@ -57,26 +57,20 @@ function Header() {
   const fetcher = (url: string) => {
     return fetch(url).then((res) => res.json())
   }
-  const { data, error, isLoading } = useSWR(
-    `https://apis.dimuadi.vn/d2c-service/category`,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  )
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_URL_CATEGORY}`, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  })
 
   const content = (
-    <div className="menu_ly">
+    <ul className="menu_ly">
       {data?.data.map((item: BrandProps) => (
-        <li key={item?.id}>
-          <span className="top_header_span">
-            {item.name}
-          </span>
+        <li key={item?.id} className='menu_ly_li'>
+          <span className="top_header_span">{item?.name}</span>
         </li>
       ))}
-    </div>
+    </ul>
   )
 
   return (
@@ -114,9 +108,9 @@ function Header() {
           </Popover>
           <div className="main_header_search">
             <form className="main_header_search_form">
-              <div>
-                <input placeholder="Tìm kiếm..." type="text" id="input_search" autoComplete="off"></input>
-                <button type="button">
+              <div className='search_form_wrap'>
+                <input placeholder="Tìm kiếm..." type="text" id="input_search" />
+                <button type="button" className='search_form_btn'>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>

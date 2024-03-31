@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+//import { Inter } from 'next/font/google'
 import '@/app/styles/globals.scss'
 import Header from '@/components/Header/header'
 import Footer from '@/components/Footer/footer'
 import { ReduxProviders } from '@/store/provider'
-import StyledComponentsRegistry from '@/ultis/AntdRegistry'
+import StyledComponentsRegistry from '@/utils/AntdRegistry'
 
-const inter = Inter({ subsets: ['latin'] })
+//const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="vi" className="scroll-smooth">
       <ReduxProviders>
-        <body className={inter.className}>
+        <body>
           <StyledComponentsRegistry>
               <div className="main_layout">
                 <Header />

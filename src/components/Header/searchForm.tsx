@@ -22,6 +22,12 @@ const searchForm = () => {
     setIsSegmentVisible(value.trim() !== '')
   }
 
+  const redirectToPage = (name: string, id: string) => {
+    router.push(`/product/${convertSlug(name)}-${id}.html`)
+    setSearchValue('')
+    setIsSegmentVisible(false)
+  }
+
   const { data } = useSWR(searchValue ? `${process.env.NEXT_PUBLIC_URL_PRODUCT}?name=${searchValue}` : null, useFetcher)
 
   return (
@@ -53,7 +59,7 @@ const searchForm = () => {
                 ? data?.data.map((item: ProductProps, index: number) => (
                     <li className="search_result_item" key={index}>
                       <Image src={item?.thumbImage} width={60} height={60} alt="" className="image" />
-                      <div className="info_item" onClick={() => router.push(`/product/${convertSlug(item?.name)}-${item?.id}.html`)}>
+                      <div className="info_item" onClick={() => redirectToPage(item?.name, item?.id)}>
                         <span className="name">{item?.name}</span>
                         <span className="price">{formatPrice(item?.price)}</span>
                       </div>

@@ -22,7 +22,7 @@ function Cart() {
   const [quantity, setQuantity] = useState<string | number>(0)
   const tPrice = data ? data.reduce((acc, cur) => acc + cur.quantity * cur.productPrice, 0) : 0
   const flag = useAppSelector(CartItems)
-
+  
   useEffect(() => {
     if (typeof window !== 'undefined' && data) {
       const data = JSON.parse(localStorage.getItem('cart-store') as string)

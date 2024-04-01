@@ -21,14 +21,17 @@ async function getCategoryHot() {
 }
 
 export default async function Home() {
-  const bestSeller = await getBestSeller()
-  const categoryHot = await getCategoryHot()
+  const bestSellerResponse = await getBestSeller()
+  const categoryHotResponse = await getCategoryHot()
+
+  const bestSeller = bestSellerResponse?.data || []
+  const categoryHot = categoryHotResponse?.data || []
 
   return (
     <main>
       <Slider />
-      <BestSeller bestSeller={bestSeller?.data} />
-      <BrandHot brandHot={categoryHot?.data} />
+      <BestSeller bestSeller={bestSeller} />
+      <BrandHot brandHot={categoryHot} />
       <Voucher />
       <ProductSuggestion />
     </main>

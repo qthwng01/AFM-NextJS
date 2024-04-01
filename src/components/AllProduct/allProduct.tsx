@@ -13,8 +13,8 @@ function AllProduct() {
         <ConfigProvider
           theme={{
             token: {
-              colorPrimaryBorder: '#03c78c',
-              colorPrimary: '#03c78c',
+              colorPrimaryBorder: '#03C78C',
+              colorPrimary: '#03C78C',
             },
           }}
         >

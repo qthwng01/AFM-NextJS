@@ -98,6 +98,7 @@
   width: 100%;
   max-width: 90%;
   padding: 0 20px;
+  position: relative;
 
   .search_form_wrap {
     position: relative;
@@ -134,6 +135,75 @@
     border: 1px solid var(--primary-color);
     cursor: pointer;
     transition: all 0.5s ease-in-out;
+  }
+
+  #input_search::-webkit-search-cancel-button{
+    position:relative;
+    right:50px;  
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius:10px;
+    background: url(https://img.icons8.com/ios/50/delete-sign--v1.png) no-repeat 50% 50%;
+}
+
+  #scrollbar_rs::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+  }
+
+  #scrollbar_rs::-webkit-scrollbar {
+    width: 5px;
+    background-color: #f5f5f5;
+  }
+
+  #scrollbar_rs::-webkit-scrollbar-thumb {
+    background-color: #00000070;
+    border: 2px solid #555555;
+  }
+
+  .search_result {
+    position: absolute;
+    width: 93%;
+    height: 250px;
+    overflow-x: auto;
+    top: 60px;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+    .search_result_list {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .search_result_list .search_result_item {
+      margin-bottom: 25px;
+      display: inline-flex;
+      align-items: center;
+
+      .info_item {
+        display: grid;
+        margin-left: 10px;
+
+        .name {
+          font-size: 16px;
+          font-weight: 500;
+        }
+        .price {
+          margin-top: 0.2rem;
+          color: var(--primary-color);
+          font-weight: 700;
+        }
+      }
+    }
+
+    .search_result_list .search_result_item:hover {
+      border-radius: 10px;
+      background-color: rgb(241, 245, 249);
+      cursor: pointer;
+    }
   }
 }
 

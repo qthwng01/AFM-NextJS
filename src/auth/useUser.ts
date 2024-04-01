@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/libs/firebase/FirebaseConfig'
 
-interface UserDataProps {
+interface IUserDataProps {
   displayName: string | null
   email: string | null
   phoneNumber: string | null
@@ -13,7 +13,7 @@ interface UserDataProps {
 }
 
 function useUser() {
-  const [userData, setUserData] = useState<UserDataProps | null>(null)
+  const [userData, setUserData] = useState<IUserDataProps | null>(null)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {

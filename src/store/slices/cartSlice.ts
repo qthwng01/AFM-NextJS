@@ -19,22 +19,26 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartProps>) => {
-      const existingItem = state.items?.find((item) => item.productId === action.payload.productId)
-      if (existingItem) {
-        existingItem.quantity += 1
-      } else {
-        state.items.push(action.payload)
+      if (state.items) {
+        const existingItem = state.items.find((item) => item.productId === action.payload.productId)
+        if (existingItem) {
+          existingItem.quantity += 1
+        } else {
+          state.items.push(action.payload)
+        }
+        localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
+        localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
       }
-      localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
-      localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
     },
     increaseAmount: (state, action: { payload: { productId: string } }) => {
-      const existingItem = state.items?.find((item) => item.productId === action.payload.productId)
-      if (existingItem) {
-        existingItem.quantity += 1
+      if (state.items) {
+        const existingItem = state.items.find((item) => item.productId === action.payload.productId)
+        if (existingItem) {
+          existingItem.quantity += 1
+        }
+        localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
+        localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
       }
-      localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
-      localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
     },
     decreaseAmount: (state, action: { payload: { productId: string } }) => {
       const existingItem = state.items?.find((item) => item.productId === action.payload.productId)

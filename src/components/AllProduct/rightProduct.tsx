@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Row, Col, Select, Card, Pagination, ConfigProvider } from 'antd'
 import type { PaginationProps } from 'antd'
 import useSWR from 'swr'
@@ -19,6 +19,7 @@ function RightProduct() {
   const [categoryValue, setCategoryValue] = useState<string>('')
   const [pageValue, setPageValue] = useState<string>('')
   const [pages, setPages] = useState<number>(1)
+  const [sortOption, setSortOption] = useState<string>('')
   const router = useRouter()
 
   useEffect(() => {
@@ -54,7 +55,26 @@ function RightProduct() {
     }
   )
 
-  const totalPage: number = data?.paging?.total
+  //const totalPage: number = data?.paging?.total
+
+  // Handle change state option in Select
+  const handleChangeSelect = (value: string) => {
+    setSortOption(value)
+  }
+
+  // Data sorted
+  const sortedData = useMemo(() => {
+    if (!data?.data) return []
+
+    return [...data.data].sort((a, b) => {
+      if (sortOption === 'price_ascending') {
+        return a.price - b.price
+      } else if (sortOption === 'price_decrease') {
+        return b.price - a.price
+      }
+      return 0
+    })
+  }, [data?.data, sortOption])
 
   const onChangePage: PaginationProps['onChange'] = (page) => {
     const searchParams = new URLSearchParams(window.location.search)
@@ -79,13 +99,12 @@ function RightProduct() {
           <p>Sắp xếp theo</p>
           <Select
             defaultValue="Tất cả"
-            style={{ width: 120 }}
-            // onChange={handleChange}
+            style={{ width: 150 }}
+            onChange={handleChangeSelect}
             options={[
               { value: 'Tất cả', label: 'Tất cả', disabled: true },
-              { value: 'jack', label: 'Jack' },
-              { value: 'lucy', label: 'Lucy' },
-              { value: 'Yiminghe', label: 'yiminghe' },
+              { value: 'price_ascending', label: 'Giá tăng dần' },
+              { value: 'price_decrease', label: 'Giá giảm dần' },
             ]}
           />
         </div>
@@ -99,7 +118,7 @@ function RightProduct() {
           }}
         >
           <Row gutter={[10, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
-            {data?.data.map((item: ProductProps) => (
+            {sortedData.map((item: ProductProps) => (
               <Col span={6} key={item.id}>
                 <Card className="card_all_product">
                   <div className="image_all_product">
@@ -127,7 +146,7 @@ function RightProduct() {
         </ConfigProvider>
       </div>
       <div className="product_right_bottom_pagination">
-        <Pagination current={pages} total={totalPage} pageSize={12} showSizeChanger={false} onChange={onChangePage} />
+        <Pagination current={pages} total={data?.paging?.total} pageSize={12} showSizeChanger={false} onChange={onChangePage} />
       </div>
     </div>
   )

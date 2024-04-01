@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Popover } from 'antd'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { DataServices } from '@/constants/DataServices'
 import Link from 'next/link'
 import { signOut } from 'firebase/auth'
@@ -13,6 +14,7 @@ import useSWR from 'swr'
 import { useAppSelector } from '@/store/hook/hooks'
 import { CartItems } from '@/store/slices/cartSlice'
 import { BrandProps } from '@/app/types'
+import SearchForm from './searchForm'
 import '@/components/Header/header.scss'
 import logo from '@/app/assets/logo.png'
 import user from '@/app/assets/user.png'
@@ -20,19 +22,24 @@ import exit from '@/app/assets/exit.png'
 //import ConfirmPassword from '../User/info/profile/manage/confirmPassword'
 
 function Header() {
+  const router = useRouter()
   const isUser = useUser()
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const [popoverVisible, setPopoverVisible] = useState<boolean>(false)
   const [countQuantity, setCountQuantity] = useState<string>('')
   const menuListRef = useRef<HTMLDivElement | null>() as React.MutableRefObject<HTMLInputElement>
   const buttonRef = useRef<HTMLDivElement | null>() as React.MutableRefObject<HTMLInputElement>
   const cartItems = useAppSelector(CartItems)
 
   const cartQuantity =
-    typeof window !== 'undefined' && localStorage.getItem('cart-quanity') !== null ? JSON.parse(localStorage.getItem('cart-quanity') as string) : ''
+    typeof window !== 'undefined' && localStorage.getItem('cart-quanity') !== null
+      ? JSON.parse(localStorage.getItem('cart-quanity') as string)
+      : ''
   useEffect(() => {
     setCountQuantity(cartQuantity)
   }, [cartItems])
 
+  //handle menu button
   const handleClickOutside = (e: MouseEvent) => {
     if (!menuListRef?.current?.contains(e.target as HTMLElement) && !buttonRef?.current?.contains(e.target as HTMLElement)) {
       setMenuOpen(false)
@@ -43,7 +50,9 @@ function Header() {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   })
+  //end handle menu button
 
+  //handle logout
   const handleLogout = async () => {
     await signOut(auth)
     const response = await fetch(`/api/logout`, {
@@ -54,6 +63,7 @@ function Header() {
     }
   }
 
+  // fetching data
   const fetcher = (url: string) => {
     return fetch(url).then((res) => res.json())
   }
@@ -66,7 +76,14 @@ function Header() {
   const content = (
     <ul className="menu_ly">
       {data?.data.map((item: BrandProps) => (
-        <li key={item?.id} className='menu_ly_li'>
+        <li
+          className="menu_ly_li"
+          key={item.id}
+          onClick={() => {
+            setPopoverVisible(false)
+            router.push(`/product?category_id=${item?.id}&page=1`)
+          }}
+        >
           <span className="top_header_span">{item?.name}</span>
         </li>
       ))}
@@ -96,32 +113,85 @@ function Header() {
               <Image src={logo} alt="logo" />
             </Link>
           </div>
-          <Popover content={content} placement="bottomLeft" trigger="click">
+          <Popover
+            content={content}
+            placement="bottomLeft"
+            open={popoverVisible}
+            trigger="click"
+            onOpenChange={(visible) => setPopoverVisible(visible)}
+          >
             <div className="main_header_cate">
               <div className="cate_inside">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                 </svg>
                 Danh mục
               </div>
             </div>
           </Popover>
-          <div className="main_header_search">
+          <SearchForm />
+          {/* <div className="main_header_search">
             <form className="main_header_search_form">
-              <div className='search_form_wrap'>
-                <input placeholder="Tìm kiếm..." type="text" id="input_search" />
-                <button type="button" className='search_form_btn'>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              <div className="search_form_wrap">
+                <input placeholder="Tìm kiếm..." type="search" id="input_search" />
+                <button type="button" className="search_form_btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                    />
                   </svg>
                 </button>
               </div>
+              <div className="search_result" id='scrollbar_rs'>
+                <ul className="search_result_list">
+                  <li className="search_result_item">
+                    <Link href={''} className="a_item">
+                      <Image
+                        src={
+                          'https://static.dimuadi.vn/prod/product/image/uynf7kcgg1bpzxskqji0m_z5055956448203a4761650905923644aa170e53ab99a42.jpg'
+                        }
+                        width={55}
+                        height={55}
+                        alt=""
+                        className="image"
+                      />
+                    </Link>
+                    <div className="info_item">
+                      <span className="name">Tảo xanh</span>
+                      <span className="price">100.000</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </form>
-          </div>
+          </div> */}
           <div className="main_header_login">
             {!isUser ? (
               <Link href={'/login'} className="button_login">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -132,7 +202,14 @@ function Header() {
               </Link>
             ) : (
               <span ref={buttonRef} className="button_login" onClick={() => setMenuOpen((prev) => !prev)}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -165,7 +242,14 @@ function Header() {
           <div className="main_header_cart">
             <Badge count={countQuantity}>
               <div className="main_header_cart_inside">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

@@ -44,6 +44,19 @@ function LeftFilter() {
     }
   )
 
+  useEffect(() => {
+    if (categoryId) {
+      setCategoryValue(Number(categoryId))
+    } else {
+      setCategoryValue(0)
+    }
+    if (brandId) {
+      setBrandValue(Number(brandId))
+    } else {
+      setBrandValue(0)
+    }
+  }, [brandId, categoryId])
+
   const onChangeCategory = (e: RadioChangeEvent) => {
     setCategoryValue(e.target.value)
   }

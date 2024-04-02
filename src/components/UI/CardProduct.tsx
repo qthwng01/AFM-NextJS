@@ -2,21 +2,22 @@ import { Card, ConfigProvider } from 'antd'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FC } from 'react'
-import { formatPrice } from '@/utils/formatCurrency'
+import { formatPrice, formatUnit } from '@/utils/formatCurrency'
 import { convertSlug } from '@/utils/convertSlugUrl'
 import './CardProduct.scss'
 
-interface CardProps {
+interface ICardProps {
   id: string
   name: string
   thumbImage: string
   price: number
   priceBeforeDiscount: number
   discountAmount: number
+  totalSelling: number
   className: string
 }
 
-const CardProduct: FC<CardProps> = ({ id, name, thumbImage, price, priceBeforeDiscount, discountAmount, className }) => {
+const CardProduct: FC<ICardProps> = ({ id, name, thumbImage, price, priceBeforeDiscount, discountAmount, totalSelling, className }) => {
   return (
     <ConfigProvider
       theme={{
@@ -53,6 +54,7 @@ const CardProduct: FC<CardProps> = ({ id, name, thumbImage, price, priceBeforeDi
                 ''
               )}
             </p>
+            <p>Đã bán: {formatUnit(totalSelling)}</p>
           </div>
         </div>
       </Card>

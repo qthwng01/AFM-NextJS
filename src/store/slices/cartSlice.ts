@@ -8,7 +8,9 @@ interface CartState {
 }
 
 const cartItems =
-  typeof window !== 'undefined' && localStorage.getItem('cart-store') !== null ? JSON.parse(localStorage.getItem('cart-store') as string) : []
+  typeof window !== 'undefined' && localStorage.getItem('cart-store') !== null
+    ? JSON.parse(localStorage.getItem('cart-store') as string)
+    : []
 
 const initialState: CartState = {
   items: cartItems,
@@ -19,26 +21,22 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartProps>) => {
-      if (state.items) {
-        const existingItem = state.items.find((item) => item.productId === action.payload.productId)
-        if (existingItem) {
-          existingItem.quantity += 1
-        } else {
-          state.items.push(action.payload)
-        }
-        localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
-        localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
+      const existingItem = state.items.find((item) => item.productId === action.payload.productId)
+      if (existingItem) {
+        existingItem.quantity += 1
+      } else {
+        state.items.push(action.payload)
       }
+      localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
+      localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
     },
     increaseAmount: (state, action: { payload: { productId: string } }) => {
-      if (state.items) {
-        const existingItem = state.items.find((item) => item.productId === action.payload.productId)
-        if (existingItem) {
-          existingItem.quantity += 1
-        }
-        localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
-        localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
+      const existingItem = state.items.find((item) => item.productId === action.payload.productId)
+      if (existingItem) {
+        existingItem.quantity += 1
       }
+      localStorage.setItem('cart-store', JSON.stringify(state.items.map((item) => item)))
+      localStorage.setItem('cart-quanity', JSON.stringify(state.items.reduce((acc, cur) => acc + cur.quantity, 0)))
     },
     decreaseAmount: (state, action: { payload: { productId: string } }) => {
       const existingItem = state.items?.find((item) => item.productId === action.payload.productId)

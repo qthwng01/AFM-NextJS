@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Row, Col, Button, Badge, ConfigProvider } from 'antd'
+import { Row, Col, Button, Badge, message, ConfigProvider } from 'antd'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 import { ProductDetailProps } from '@/app/types'
@@ -28,6 +28,7 @@ const ProductDetail = ({ data }: ProductProps) => {
   const router = useRouter()
   const item: ProductDetailProps = data?.data
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null)
+  const [messageApi, contextHolder] = message.useMessage()
   const dispatch = useAppDispatch()
 
   const handleAddToCart = () => {
@@ -40,6 +41,10 @@ const ProductDetail = ({ data }: ProductProps) => {
       productImage: item.thumbImage,
     }
     dispatch(addToCart(newOrder))
+    messageApi.open({
+      type: 'success',
+      content: 'Đã thêm vào giỏ hàng',
+    })
   }
 
   const handleBuy = () => {
@@ -59,6 +64,7 @@ const ProductDetail = ({ data }: ProductProps) => {
     <div className="product_detail_ly">
       <div className="container">
         <div className="product_info">
+          {contextHolder}
           <Row gutter={{ xs: 8, sm: 16, md: 16, lg: 16 }}>
             <Col span={10}>
               <div className="thumbnail_image">

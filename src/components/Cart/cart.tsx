@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Row, Col, Button, ConfigProvider, InputNumber, Empty, Select, Input, Modal } from 'antd'
+import { Row, Col, Button, ConfigProvider, InputNumber, Empty, Select, Input, Modal,message } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { CartProps } from '@/app/types'
 import { formatPrice } from '@/utils/formatCurrency'
@@ -18,11 +18,12 @@ function Cart() {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const [modal, contextHolder] = Modal.useModal()
+  const [messageApi, contextHolderMessage] = message.useMessage()
   const [data, setData] = useState<CartProps[]>([])
   const [quantity, setQuantity] = useState<string | number>(0)
   const tPrice = data ? data.reduce((acc, cur) => acc + cur.quantity * cur.productPrice, 0) : 0
   const flag = useAppSelector(CartItems)
-  
+
   useEffect(() => {
     if (typeof window !== 'undefined' && data) {
       const data = JSON.parse(localStorage.getItem('cart-store') as string)
@@ -45,6 +46,10 @@ function Cart() {
 
   const handleRemoveAmount = (productId: string) => {
     dispatch(removeItem({ productId }))
+    messageApi.open({
+      type: 'success',
+      content: 'Đã xoá khỏi giỏ hàng',
+    })
   }
 
   const handleDeleteAll = () => {
@@ -120,7 +125,7 @@ function Cart() {
                             <span className="minus" onClick={() => handleDecreaseAmount(item?.productId)}>
                               -
                             </span>
-                            <InputNumber value={item?.quantity} controls={false} width={20} />
+                            <InputNumber min={1} max={10} value={item?.quantity} controls={false} width={20} />
                             <span className="add" onClick={() => handleIncreaseAmount(item?.productId)}>
                               +
                             </span>
@@ -138,12 +143,7 @@ function Cart() {
                         </Col>
                         <Col span={2}>
                           <div className="remove">
-                            <span onClick={() => handleRemoveAmount(item?.productId)}>
-                              Xoá
-                              {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20px" height="20px">
-                                <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
-                              </svg> */}
-                            </span>
+                            <span onClick={() => handleRemoveAmount(item?.productId)}>Xoá</span>
                           </div>
                         </Col>
                       </Row>
@@ -164,7 +164,11 @@ function Cart() {
                   </div>
                   <div className="shipping">
                     <p>Phương thức thanh toán</p>
-                    <Select defaultValue="cod" style={{ width: '100%' }} options={[{ value: 'cod', label: 'Ship COD - Thanh toán khi nhận hàng' }]} />
+                    <Select
+                      defaultValue="cod"
+                      style={{ width: '100%' }}
+                      options={[{ value: 'cod', label: 'Ship COD - Thanh toán khi nhận hàng' }]}
+                    />
                   </div>
                   <div className="promote">
                     <p>Mã giảm giá</p>
@@ -177,7 +181,13 @@ function Cart() {
                   <div className="checkout">
                     <span className="total_count">Tạm tính</span>
                     <span className="total_value">{formatPrice(tPrice)}</span>
-                    <Button onClick={processCheckout} htmlType="button" style={{ width: '100%' }} className="checkout_button" type="primary">
+                    <Button
+                      onClick={processCheckout}
+                      htmlType="button"
+                      style={{ width: '100%' }}
+                      className="checkout_button"
+                      type="primary"
+                    >
                       Tiếp tục
                     </Button>
                   </div>
@@ -186,7 +196,8 @@ function Cart() {
             </Col>
           </Row>
           {/* Modal Delete All */}
-            {contextHolder}
+          {contextHolder}
+          {contextHolderMessage}
           {/* Modal Delete All */}
         </ConfigProvider>
       </div>

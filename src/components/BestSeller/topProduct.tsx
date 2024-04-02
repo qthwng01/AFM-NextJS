@@ -88,6 +88,7 @@ function TopProduct() {
                         price={item.price}
                         priceBeforeDiscount={item.priceBeforeDiscount}
                         discountAmount={item.discountAmount}
+                        totalSelling={item.totalSelling}
                       />
                     </Col>
                   ))}

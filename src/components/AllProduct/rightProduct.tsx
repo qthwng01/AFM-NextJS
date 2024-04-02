@@ -8,6 +8,7 @@ import useSWR from 'swr'
 import { ProductProps } from '@/app/types'
 import { formatPrice } from '@/utils/formatCurrency'
 import { convertSlug } from '@/utils/convertSlugUrl'
+import useFetcher from '@/hooks/useFetcher'
 //import prod from '@/app/assets/prod.jpg'
 
 function RightProduct() {
@@ -24,7 +25,7 @@ function RightProduct() {
 
   useEffect(() => {
     if (categoryId) {
-      setCategoryValue(categoryId)
+      setCategoryValue(categoryId.toString())
     } else {
       setCategoryValue('')
     }
@@ -41,21 +42,18 @@ function RightProduct() {
     }
   }, [brandId, categoryId, pageId])
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json())
   // Fetching Products
-  const { data, error, isLoading } = useSWR(
+  const { data, isLoading, error } = useSWR(
     `${process.env.NEXT_PUBLIC_URL_PRODUCT}?brand_id=${brandValue}${
-      categoryValue !== '' ? `&category_id=${categoryValue}` : ''
+      categoryValue !== '' && categoryValue !== '0' ? `&category_id=${categoryValue}` : ''
     }&page=${pageValue}&page_size=12`,
-    fetcher,
+    useFetcher,
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     }
   )
-
-  //const totalPage: number = data?.paging?.total
 
   // Handle change state option in Select
   const handleChangeSelect = (value: string) => {
@@ -76,6 +74,7 @@ function RightProduct() {
     })
   }, [data?.data, sortOption])
 
+  // handle pagination
   const onChangePage: PaginationProps['onChange'] = (page) => {
     const searchParams = new URLSearchParams(window.location.search)
     if (page) {
@@ -118,30 +117,36 @@ function RightProduct() {
           }}
         >
           <Row gutter={[10, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
-            {sortedData.map((item: ProductProps) => (
-              <Col span={6} key={item.id}>
-                <Card className="card_all_product">
-                  <div className="image_all_product">
-                    <Link href={`/product/${convertSlug(item.name)}-${item.id}.html`}>
-                      <Image src={item.thumbImage} width={180} height={180} alt={item.name} className="image_product_main" />
-                    </Link>
-                  </div>
-                  <div className="description_all_product">
-                    <div className="name_all_product">
-                      <Link href={`/product/${convertSlug(item.name)}-${item.id}.html`}>
-                        <h2>{item.name}</h2>
-                      </Link>
-                    </div>
-                    <div className="price_all_product">
-                      <p>{formatPrice(item.price)}</p>
-                    </div>
-                    <div className="old_price">
-                      {item.priceBeforeDiscount > 0 ? <p className="content_info_discount">{formatPrice(item.priceBeforeDiscount)}</p> : ''}
-                    </div>
-                  </div>
-                </Card>
-              </Col>
-            ))}
+            {sortedData?.length > 0
+              ? sortedData?.map((item: ProductProps) => (
+                  <Col span={6} key={item?.id}>
+                    <Card className="card_all_product">
+                      <div className="image_all_product">
+                        <Link href={`/product/${convertSlug(item?.name)}-${item?.id}.html`}>
+                          <Image src={item?.thumbImage} width={180} height={180} alt={item?.name} className="image_product_main" />
+                        </Link>
+                      </div>
+                      <div className="description_all_product">
+                        <div className="name_all_product">
+                          <Link href={`/product/${convertSlug(item?.name)}-${item?.id}.html`}>
+                            <h2>{item?.name}</h2>
+                          </Link>
+                        </div>
+                        <div className="price_all_product">
+                          <p>{formatPrice(item?.price)}</p>
+                        </div>
+                        <div className="old_price">
+                          {item?.priceBeforeDiscount > 0 ? (
+                            <p className="content_info_discount">{formatPrice(item?.priceBeforeDiscount)}</p>
+                          ) : (
+                            ''
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  </Col>
+                ))
+              : 'Không có dữ liệu hoặc sản phẩm đã bị xoá.'}
           </Row>
         </ConfigProvider>
       </div>

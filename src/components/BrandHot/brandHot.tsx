@@ -50,7 +50,7 @@ function BrandHot({ brandHot }: BrandList) {
               <Col span={3} key={item.id}>
                 <SwiperSlide key={item.id}>
                   <Card>
-                    <Link href={'/'} title={item.name}>
+                    <Link href={`/product?brand_id=${item?.id}&brand_name=${item?.name}&page=1`} title={item.name}>
                       <Image src={item.image} width={80} height={65} alt={item.name}></Image>
                     </Link>
                   </Card>

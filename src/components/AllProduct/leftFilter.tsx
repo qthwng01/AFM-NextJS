@@ -5,8 +5,8 @@ import type { RadioChangeEvent } from 'antd'
 import { CategoryProps, BrandProps } from '@/app/types'
 import useSWR from 'swr'
 import { useRouter, useSearchParams } from 'next/navigation'
+import useFetcher from '@/hooks/useFetcher'
 import filter from '@/app/assets/filter.svg'
-import arrowdb from '@/app/assets/arrow-db.svg'
 
 interface FilterProps {
   name: string
@@ -15,14 +15,34 @@ interface FilterProps {
 const { Search } = Input
 
 function LeftFilter() {
-  const [categoryValue, setCategoryValue] = useState<number>(0)
-  const [brandValue, setBrandValue] = useState<number>(0)
-  const [allBrand, setAllBrand] = useState<BrandProps[]>([])
-  const [countLoad, setCountLoad] = useState<number>(4)
-  const [searchTerm, setSearchTerm] = useState<string>('')
-  const pages = 382
   const router = useRouter()
   const getSearchParams = useSearchParams()
+  const brandName = getSearchParams.get('brand_name')
+  const brandId = getSearchParams.get('brand_id')
+  const categoryId = getSearchParams.get('category_id')
+  const [categoryValue, setCategoryValue] = useState<number>(categoryId ? Number(categoryId) : 0)
+  const [brandValue, setBrandValue] = useState<number>(brandId ? Number(brandId) : 0)
+  const [searchBrand, setSearchBrand] = useState<BrandProps[]>([])
+  const [searchTerm, setSearchTerm] = useState<string>(brandName ? brandName : '')
+  const pages = 382
+
+  // Fetching Categories
+  const { data: dataCate, isLoading: isLoadingCate } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, useFetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  })
+
+  // Fetching Brands
+  const { data: dataBrand, isLoading: isLoadingBrand } = useSWR(
+    `${process.env.NEXT_PUBLIC_URL_BRAND}?page=1&page_size=${pages}`,
+    useFetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  )
 
   const onChangeCategory = (e: RadioChangeEvent) => {
     setCategoryValue(e.target.value)
@@ -66,56 +86,19 @@ function LeftFilter() {
     router.push(newPathname)
   }
 
-  const deleteFilter = () => {
+  const handleReset = () => {
     setCategoryValue(0)
     setBrandValue(0)
+    setSearchTerm('')
   }
-
-  const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-  // Fetching Categories
-  const {
-    data: dataCate,
-    error: errorCate,
-    isLoading: isLoadingCate,
-  } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  })
-
-  // Fetching Brands
-  const {
-    data: dataBrand,
-    error: errorBrand,
-    isLoading: isLoadingBrand,
-  } = useSWR(`${process.env.NEXT_PUBLIC_URL_BRAND}?page=1&page_size=${pages}`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  })
-
-  //Load more
-  useEffect(() => {
-    if (countLoad === 4 && dataBrand !== undefined) {
-      const firstIssue = dataBrand?.data?.slice(0, 4)
-      setAllBrand(firstIssue)
-    } else if (countLoad > 4) {
-      const firstIssue = dataBrand?.data.slice(0, 4)
-      const secondIssue = dataBrand?.data.slice(4, countLoad)
-      setAllBrand([...firstIssue, ...secondIssue])
-    }
-  }, [countLoad, dataBrand])
-  //End Fetching Brands
 
   //Search data
   useEffect(() => {
     if (searchTerm.toLowerCase() !== null && searchTerm.toLowerCase() !== '') {
       const result = dataBrand?.data.filter((i: FilterProps) => i.name.toLowerCase().includes(searchTerm.toLowerCase()))
-      setAllBrand(result)
+      setSearchBrand(result)
     } else {
-      const firstIssue = dataBrand?.data.slice(0, 4)
-      setAllBrand(firstIssue)
+      setSearchBrand(dataBrand?.data)
     }
   }, [searchTerm])
 
@@ -156,23 +139,27 @@ function LeftFilter() {
           <div className="brand_search_list">
             <Radio.Group onChange={onChangeBrand} value={brandValue}>
               <Space direction="vertical">
-                {allBrand?.map(
-                  (item: BrandProps): JSX.Element => (
-                    <Radio value={item.id} key={item.id}>
-                      {item.name}
-                    </Radio>
-                  )
-                )}
+                {searchBrand?.length > 0
+                  ? searchBrand.map(
+                      (item: BrandProps): JSX.Element => (
+                        <Radio value={item.id} key={item.id}>
+                          {item.name}
+                        </Radio>
+                      )
+                    )
+                  : dataBrand?.data?.map(
+                      (item: BrandProps): JSX.Element => (
+                        <Radio value={item.id} key={item.id}>
+                          {item.name}
+                        </Radio>
+                      )
+                    )}
               </Space>
             </Radio.Group>
           </div>
-          <div className="show_more">
-            <Image src={arrowdb} width={25} height={25} alt="arrow" />
-            <span onClick={() => setCountLoad(countLoad + 4)}>Xem thêm</span>
-          </div>
         </div>
         <div className="brand_search_button">
-          <Button onClick={deleteFilter} className="brand_button_reset" htmlType="button">
+          <Button onClick={handleReset} className="brand_button_reset" htmlType="button">
             Đặt lại
           </Button>
           <Button className="brand_button_submit" htmlType="submit" type="primary">

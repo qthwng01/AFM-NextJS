@@ -8,17 +8,21 @@ import '@/components/Voucher/voucher.scss'
 
 function Voucher() {
   const fetcher = (url: string) => {
-    const headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    headers.append('Authorization', `Token ${process.env.NEXT_PUBLIC_TOKEN_KEY}`)
-
-    return fetch(url, {
-      method: 'GET',
-      headers: headers,
-    }).then((res) => res.json())
+    try {
+      const headers = new Headers()
+      headers.append('Content-Type', 'application/json')
+      headers.append('Authorization', `Token ${process.env.NEXT_PUBLIC_TOKEN_KEY}`)
+      return fetch(url, {
+        method: 'GET',
+        headers: headers,
+      }).then((res) => res.json())
+    } catch (e) {
+      console.error(e)
+      throw e
+    }
   }
 
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL_COUPON}`, fetcher, {
+  const { data, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL_COUPON}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

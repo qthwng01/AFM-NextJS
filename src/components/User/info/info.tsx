@@ -4,7 +4,6 @@ import React from 'react'
 import { Row, Col, Tabs, ConfigProvider } from 'antd'
 import Order from './order/order'
 import Profile from './profile/profile'
-import useUser from '@/auth/useUser'
 import './info.scss'
 
 const DataTab = [
@@ -16,14 +15,13 @@ const DataTab = [
     name: 'Đơn hàng',
     component: <Order />,
   },
-  {
-    name: 'Updating',
-    component: '',
-  },
+  // {
+  //   name: 'Updating',
+  //   component: '',
+  // },
 ]
 
-function Info() {
-  const isUser = useUser()
+const Info = () => {
   return (
     <ConfigProvider
       theme={{

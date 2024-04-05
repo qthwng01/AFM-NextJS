@@ -27,7 +27,7 @@ const CardProduct: FC<ICardProps> = ({ id, name, thumbImage, price, priceBeforeD
         },
       }}
     >
-      <Card className={!!className ? className : "card_product" }>
+      <Card className={!!className ? className : 'card_product'}>
         <div className="image_product">
           <Link href={`/product/${convertSlug(name)}-${id}.html`}>
             <Image src={thumbImage} width={160} height={160} alt={name} className="image_product_main" />

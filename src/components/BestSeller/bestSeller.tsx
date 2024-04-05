@@ -24,9 +24,9 @@ function BestSeller({ bestSeller }: BestSellerListProps) {
         </Link>
       </div>
       <div className="best_seller">
-        <Row gutter={{ xs: 8, sm: 16, md: 16, lg: 16 }}>
+        <Row gutter={[8, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
           {bestSeller?.map((item) => (
-            <Col lg={4} xl={4} key={item.id}>
+            <Col xs={12} md={12} lg={4} xl={4} key={item.id}>
               <CardProduct
                 className="card_product_best_seller"
                 id={item.id}

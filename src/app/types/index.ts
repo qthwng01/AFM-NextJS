@@ -229,13 +229,13 @@ export interface WardProps {
 }
 
 export interface IOrder {
-  createdAt: string
+  created_at: string
   city: string
   mail: string
   fullname: string
   phone: string
-  orderID: string
-  updatedAt: string
+  orderId: string
+  updated_at: string
   ward: string
   userID: string
   address: string
@@ -247,13 +247,8 @@ export interface IOrder {
 
 export interface IDataOrder extends IOrder {
   quantity: number
-  productID: string
+  productId: string
   productImage: string
   productPrice: number
   productName: string
-}
-
-export interface IMessageProps {
-  type: string
-  content: string
 }

@@ -15,11 +15,11 @@ import { useAppSelector } from '@/store/hook/hooks'
 import { CartItems } from '@/store/slices/cartSlice'
 import { BrandProps } from '@/app/types'
 import SearchForm from './searchForm'
+import useFetcher from '@/hooks/useFetcher'
 import '@/components/Header/header.scss'
 import logo from '@/app/assets/logo.png'
 import user from '@/app/assets/user.png'
 import exit from '@/app/assets/exit.png'
-//import ConfirmPassword from '../User/info/profile/manage/confirmPassword'
 
 function Header() {
   const router = useRouter()
@@ -45,7 +45,6 @@ function Header() {
       setMenuOpen(false)
     }
   }
-
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
@@ -64,10 +63,7 @@ function Header() {
   }
 
   // fetching data
-  const fetcher = (url: string) => {
-    return fetch(url).then((res) => res.json())
-  }
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, fetcher, {
+  const { data } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, useFetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -261,7 +257,89 @@ function Header() {
             </Badge>
           </div>
         </div>
+        <div className="container main__header-mobile">
+          <div>Menu</div>
+          <div className="main_header_logo">
+            <Link href="/">
+              <Image src={logo} alt="logo" />
+            </Link>
+          </div>
+          {/* <div className="main_header_login">
+            {!isUser ? (
+              <Link href={'/login'} className="button_login">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                  />
+                </svg>
+                Đăng nhập
+              </Link>
+            ) : (
+              <span ref={buttonRef} className="button_login" onClick={() => setMenuOpen((prev) => !prev)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                  />
+                </svg>
+                {isUser?.email}
+              </span>
+            )}
+            <div ref={menuListRef} className={`info_user${menuOpen ? ' show_menu' : ''}`}>
+              <ul className="info_user_list">
+                <li className="info_user_item">
+                  <Link href={`/infomation/${isUser?.uid}`} onClick={() => setMenuOpen(false)}>
+                    <Image src={user} width={24} height={24} alt="user"></Image>Tài khoản
+                  </Link>
+                </li>
+                <li className="info_user_item" onClick={() => setMenuOpen(false)}>
+                  <span onClick={handleLogout}>
+                    <Image src={exit} width={24} height={24} alt="logout"></Image>Đăng xuất
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div> */}
+          <div className="main_header_cart">
+            <Badge count={countQuantity}>
+              <div className="main_header_cart_inside" onClick={() => router.push('/cart')}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                  />
+                </svg>
+              </div>
+            </Badge>
+          </div>
+        </div>
       </div>
+      {/* <SearchForm /> */}
     </header>
   )
 }

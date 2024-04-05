@@ -17,11 +17,25 @@ const Slider = () => {
     <>
       <div className="slider_ly container">
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 24 }}>
-          <Col span={16}>
+          <Col xs={24} md={24} lg={16} xl={16}>
             <div className="slider_first">
               <Swiper
-                // allowSlidePrev
-                // slidesPerView={3}
+                slidesPerView={1}
+                spaceBetween={10}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                  },
+                }}
                 loop={true}
                 navigation={true}
                 pagination={true}
@@ -54,7 +68,7 @@ const Slider = () => {
               </Swiper>
             </div>
           </Col>
-          <Col span={8}>
+          <Col xs={24} md={24} lg={8} xl={8}>
             <div className="slider_second">
               <div className="slider_top">
                 <Link href={''}>

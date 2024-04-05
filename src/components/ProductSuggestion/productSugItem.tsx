@@ -26,9 +26,9 @@ const ProductSuggesItem = ({ id }: IdProps) => {
 
   return (
     <div className="product_sug_items">
-      <Row gutter={[16, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
+      <Row gutter={[8, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
         {dataPSI?.map((item) => (
-          <Col span={4} key={item.id}>
+          <Col xs={12} md={12} lg={4} xl={4} key={item.id}>
             <CardProduct
               className="card_product_sug"
               id={item.id}

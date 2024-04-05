@@ -87,24 +87,36 @@ function Profile() {
     <div className="profile_ly">
       <div className="profile_inside">
         {isModalConfirmPasswordOpen && (
-          <ConfirmPassword open={isModalConfirmPasswordOpen} setOpen={setIsModalConfirmPasswordOpen} setIsReauthenticate={setIsReauthenticate} />
+          <ConfirmPassword
+            open={isModalConfirmPasswordOpen}
+            setOpen={setIsModalConfirmPasswordOpen}
+            setIsReauthenticate={setIsReauthenticate}
+          />
         )}
         <Form onFinish={updateProfileHandler} form={form} name="validateOnly" layout="vertical" autoComplete="off">
           <Form.Item name="name" label="Tên">
-            <Input value={name} size="large" type="text" onChange={handleChangeName} />
+            <Input style={{ width: 500 }} value={name} size="large" type="text" onChange={handleChangeName} />
           </Form.Item>
           <Form.Item name="email" label="Email">
-            <Input disabled size="large" type="text" />
+            <Input style={{ width: 500 }} name="input-email" disabled size="large" type="text" />
           </Form.Item>
           <Form.Item name="password" label="Mật khẩu">
-            <Input value={password} disabled={isReauthenticate} size="large" type="text" onChange={handleChangePassword} />
-            <p className="change_password" onClick={handleConfirmPassword}>
-              Thay đổi mật khẩu
-            </p>
+            <Input
+              style={{ width: 500 }}
+              name="input-password"
+              value={password}
+              disabled={isReauthenticate}
+              size="large"
+              type="text"
+              onChange={handleChangePassword}
+            />
           </Form.Item>
-          <Form.Item>
+          <span className="change_password" onClick={handleConfirmPassword}>
+            Thay đổi mật khẩu
+          </span>
+          <Form.Item name="button">
             <Space>
-              <Button type="primary" htmlType="submit" disabled={!submittable}>
+              <Button className='btn_change_password' style={{ width: 150 }} type="primary" htmlType="submit" disabled={!submittable}>
                 Lưu
               </Button>
             </Space>

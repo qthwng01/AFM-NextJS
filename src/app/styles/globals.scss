@@ -1,4 +1,3 @@
-
 :root {
   --primary-color: #03c78c;
   --lightgray-color: #d3d3d3;
@@ -58,17 +57,84 @@ a:hover {
 }
 
 // sm
-@media (min-width: 640px) {
+// @media (min-width: 640px) {
+// }
+
+@media only screen and (max-width: 640px) {
 }
 
 // md
-@media (min-width: 768px) {
+/* Mobile: width < 740px */
+@media only screen and (max-width: 740px) {
+  .main_header .main__header-mobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px 10px 10px;
+  }
+  .main_header .main_header_logo {
+    padding-right: 0;
+  }
+  .main_header .main_header_cart {
+    padding-left: 0;
+  } 
+  // .main_header .main_header_search {
+  //   display: none;
+  // }
+  .main_header_logo .main_header_logo img {
+    width: 180px;
+    height: 30px;
+  }
+  .main_header_cart .main_header_cart_inside {
+    border-radius: 5px;
+    padding: 4px;
+  }
+  .main_header .main_header_inside {
+    display: none;
+  }
+  .top_header {
+    display: none;
+  }
+  .slider_second {
+    display: flex;
+  }
+  .slider_top,
+  .slider_bottom {
+    padding: 0 5px;
+  }
+  .best_seller_title,
+  .category_title,
+  .voucher_title,
+  .product_sug_title {
+    padding: 0 5px;
+  }
+  .voucher_ly .voucher_items {
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .voucher_ly .voucher_detail {
+    width: 100%;
+    margin: 5px;
+  }
+  .product_sug_ly .cate_product_sug {
+    height: calc((300px * 5) + 200px);
+  }
+  .footer_ly .footer_top {
+    padding: 22px 5px 22px 5px;
+  }
+  .footer_bottom {
+    text-align: center;
+  }
+  .footer_bottom .footer_bottom_right {
+    float: none;
+  }
 }
 
 // lg
-@media (min-width: 1024px) {
+@media (min-width: 740px) and (max-width: 1023px) {
 }
 
 // xl
-@media (min-width: 1280px) {
+@media (min-width: 1024px) and (max-width: 1239px) {
 }

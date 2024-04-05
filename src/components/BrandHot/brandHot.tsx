@@ -34,11 +34,25 @@ function BrandHot({ brandHot }: BrandList) {
       </div>
       <div className="category_list">
         <Swiper
-          slidesPerView={8}
+          slidesPerView={3}
           spaceBetween={10}
           pagination={{
             clickable: true,
           }}
+          breakpoints={{
+          640: {
+            slidesPerView: 8,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 8,
+            spaceBetween: 10,
+          },
+        }}
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper
           }}
@@ -47,7 +61,7 @@ function BrandHot({ brandHot }: BrandList) {
         >
           <Row gutter={{ xs: 8, sm: 16, md: 16, lg: 16 }}>
             {brandHot?.map((item) => (
-              <Col span={3} key={item.id}>
+              <Col xs={24} md={24} lg={4} xl={4} key={item.id}>
                 <SwiperSlide key={item.id}>
                   <Card>
                     <Link href={`/product?brand_id=${item?.id}&brand_name=${item?.name}&page=1`} title={item.name}>

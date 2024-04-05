@@ -31,10 +31,10 @@ const Signup: React.FC = () => {
   const errorMessage = () => {
     messageApi.open({
       type: 'error',
-      content: 'Email đăng ký đã tồn tại,',
+      content: 'Email đăng ký đã tồn tại.',
     })
   }
-    
+
   return (
     <div className="user_login_ly">
       <div className="user_login_inside">
@@ -44,6 +44,11 @@ const Signup: React.FC = () => {
           theme={{
             token: {
               colorPrimary: '#03c78c',
+            },
+            components: {
+              Form: {
+                itemMarginBottom: 30,
+              },
             },
           }}
         >
@@ -55,11 +60,15 @@ const Signup: React.FC = () => {
             autoComplete="off"
           >
             <Form.Item<FieldType> name="username" rules={[{ required: true, message: 'Nhập email' }]} wrapperCol={{ offset: 2, span: 20 }}>
-              <Input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" />
+              <Input style={{ height: 40 }} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" />
             </Form.Item>
 
-            <Form.Item<FieldType> name="password" rules={[{ required: true, message: 'Nhập password' }]} wrapperCol={{ offset: 2, span: 20 }}>
-              <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+            <Form.Item<FieldType>
+              name="password"
+              rules={[{ required: true, message: 'Nhập password' }]}
+              wrapperCol={{ offset: 2, span: 20 }}
+            >
+              <Input.Password style={{ height: 40 }} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
             </Form.Item>
 
             {/* <Form.Item<FieldType> name="password" rules={[{ required: true, message: 'Nhập lại password' }]} wrapperCol={{ offset: 2, span: 20 }}>

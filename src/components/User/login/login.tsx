@@ -10,12 +10,6 @@ import Image from 'next/image'
 import iconGoogle from '@/app/assets/google.svg'
 import './login.scss'
 
-// type FieldType = {
-//   username?: string
-//   password?: string
-//   remember?: string
-// }
-
 const Login: React.FC = () => {
   const searchParams = useSearchParams()
   const continueTo = searchParams.get('callbackUrl')!
@@ -25,11 +19,12 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState<boolean>(false)
 
   useEffect(() => {
     getRedirectResult(auth).then(async (userCred) => {
       if (!userCred) {
-        return
+        return null
       }
       fetch('/api/login', {
         method: 'POST',
@@ -38,6 +33,7 @@ const Login: React.FC = () => {
         },
       }).then((response) => {
         if (response.status === 200) {
+          setIsLoadingGoogle(false)
           router.replace(continueToString ? continueToString : '/')
         }
       })
@@ -45,6 +41,7 @@ const Login: React.FC = () => {
   }, [])
 
   const signInWGoogle = () => {
+    setIsLoadingGoogle(true)
     signInWithRedirect(auth, provider)
   }
 
@@ -70,7 +67,7 @@ const Login: React.FC = () => {
       const errorMessage = err.message
       setError(errorMessage)
       setLoading(false)
-      console.log(err)
+      //console.log(err)
     }
   }
 
@@ -85,7 +82,7 @@ const Login: React.FC = () => {
             },
             components: {
               Form: {
-                itemMarginBottom: 20,
+                itemMarginBottom: 30,
               },
             },
           }}
@@ -93,36 +90,40 @@ const Login: React.FC = () => {
           <Form name="complex-form" onFinish={signIn} initialValues={{ remember: true }} autoComplete="off">
             <Form.Item>
               <Form.Item name="email" rules={[{ required: true, message: 'Nhập email' }]} wrapperCol={{ offset: 2, span: 20 }}>
-                <Input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                <Input style={{ height: 40 }} type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
               </Form.Item>
 
               <Form.Item name="password" rules={[{ required: true, message: 'Nhập password' }]} wrapperCol={{ offset: 2, span: 20 }}>
-                <Input.Password type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                <Input.Password
+                  style={{ height: 40 }}
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </Form.Item>
-
-              <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 2, span: 20 }}>
-                <Form.Item>
-                  {/* <Checkbox>Ghi nhớ</Checkbox> */}
+              {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 2, span: 20 }}>
+                <Form.Item name="forgot-password">
                   <a className="login-form-forgot" href="#">
                     Quên mật khẩu?
                   </a>
                 </Form.Item>
                 {error ? <p style={{ color: 'red', marginTop: '10px' }}>{error}</p> : ''}
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item name="submit" wrapperCol={{ offset: 2, span: 20 }}>
+                {error ? <p style={{ color: 'red', marginTop: '10px' }}>{error}</p> : ''}
                 {!loading ? (
                   <Button type="primary" htmlType="submit" className="login-form-button">
                     Đăng nhập
                   </Button>
                 ) : (
-                  <Button loading type="primary" htmlType="submit" className="login-form-button">
+                  <Button name="submit" loading type="primary" htmlType="submit" className="login-form-button">
                     Đăng nhập
                   </Button>
                 )}
               </Form.Item>
 
               <Form.Item name="submit-google" wrapperCol={{ offset: 2, span: 20 }}>
-                <Button onClick={signInWGoogle} htmlType="button" className="google_login">
+                <Button loading={isLoadingGoogle} onClick={signInWGoogle} htmlType="button" className="google_login">
                   <Image src={iconGoogle} width={24} height={24} alt="icon"></Image>
                   Đăng nhập bằng Google
                 </Button>

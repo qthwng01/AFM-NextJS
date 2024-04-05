@@ -22,17 +22,6 @@ const ConfirmPassword: React.FC<ConfirmPasswordProps> = ({ open, setOpen, setIsR
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
-  //   const clearError = () => {
-  //     setError('');
-  //   };
-
-  //   useEffect(() => {
-  //     if (error) {
-  //       const timeoutId = setTimeout(clearError, 3000)
-  //       return () => clearTimeout(timeoutId)
-  //     }
-  //   }, [error])
-
   const handleOk = async () => {
     if (auth?.currentUser?.email && passowrd !== '') {
       setLoading(true)
@@ -76,8 +65,6 @@ const ConfirmPassword: React.FC<ConfirmPasswordProps> = ({ open, setOpen, setIsR
         <Form
           name="basic"
           initialValues={{ remember: true }}
-          // onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
           autoComplete="off"
           className="form_confirm_password"
         >
@@ -85,7 +72,6 @@ const ConfirmPassword: React.FC<ConfirmPasswordProps> = ({ open, setOpen, setIsR
             <Input.Password value={passowrd} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             {error ? <p style={{ color: 'red', marginTop: '10px' }}>{error}</p> : ''}
           </Form.Item>
-          <Divider />
         </Form>
       </Modal>
     </div>

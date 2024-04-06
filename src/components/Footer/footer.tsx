@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="footer_ly">
       <div className="container footer_top">
         <Row gutter={[8, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
-          <Col xs={24} md={12} lg={4} xl={4}>
+          <Col xs={24} md={12} lg={6} xl={6}>
             <div className="footer_top_inside">
               <h4>VỀ CHÚNG TÔI</h4>
               <ul className='footer_list'>
@@ -36,7 +36,7 @@ const Footer = () => {
               </ul>
             </div>
           </Col>
-          <Col xs={24} md={24} lg={4} xl={4}>
+          <Col xs={24} md={24} lg={8} xl={8}>
             <div className="footer_top_inside">
               <h4>THEO DÕI</h4>
               <p>Theo dõi để nhận thông tin về những sản phẩm khuyến mãi, voucher mới nhất.</p>
@@ -50,14 +50,14 @@ const Footer = () => {
       </div>
       <div className="container footer_bottom">
         <Row gutter={[8, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
-          <Col xs={24} md={24} lg={18} xl={18}>
+          <Col xs={24} md={24} lg={12} xl={12}>
             <div className="footer_bottom_left">
               <p className='p_footer_bottom_left'>
                 ©2024 <strong>PickBazar</strong> All rights reserved
               </p>
             </div>
           </Col>
-          <Col xs={24} md={24} lg={18} xl={18}>
+          <Col xs={24} md={24} lg={12} xl={12}>
             <div className="footer_bottom_right">
               <p className='p_footer_bottom_right'>Kết nối qua</p>
               <div className="social_list">

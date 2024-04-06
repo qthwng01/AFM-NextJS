@@ -34,7 +34,7 @@ const searchForm = () => {
     <div className="main_header_search">
       <form className="main_header_search_form">
         <div className="search_form_wrap">
-          <input placeholder="Tìm kiếm..." type="search" id="input_search" value={searchValue} onInput={handleInputChange} />
+          <input placeholder="Tìm kiếm..." type="text" id="input_search" value={searchValue} onInput={handleInputChange} />
           <button type="button" className="search_form_btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"

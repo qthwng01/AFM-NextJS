@@ -4,7 +4,7 @@ import { FC } from 'react'
 const CardProductSkeleton: FC<any> = () => {
   return (
     <>
-      <Col md={4} xl={4}>
+      <Col xs={12} md={12} lg={4} xl={4}>
         <Card className="card_product">
           <Space>
             <Skeleton.Image active={true} />
@@ -14,7 +14,7 @@ const CardProductSkeleton: FC<any> = () => {
           <Skeleton active />
         </Card>
       </Col>
-      <Col md={4} xl={4}>
+      <Col xs={12} md={12} lg={4} xl={4}>
         <Card className="card_product">
           <Space>
             <Skeleton.Image active={true} />
@@ -24,7 +24,7 @@ const CardProductSkeleton: FC<any> = () => {
           <Skeleton active />
         </Card>
       </Col>
-      <Col md={4} xl={4}>
+      <Col xs={12} md={12} lg={4} xl={4}>
         <Card className="card_product">
           <Space>
             <Skeleton.Image active={true} />
@@ -34,7 +34,7 @@ const CardProductSkeleton: FC<any> = () => {
           <Skeleton active />
         </Card>
       </Col>
-      <Col md={4} xl={4}>
+      <Col xs={12} md={12} lg={4} xl={4}>
         <Card className="card_product">
           <Space>
             <Skeleton.Image active={true} />
@@ -44,7 +44,7 @@ const CardProductSkeleton: FC<any> = () => {
           <Skeleton active />
         </Card>
       </Col>
-      <Col md={4} xl={4}>
+      <Col xs={12} md={12} lg={4} xl={4}>
         <Card className="card_product">
           <Space>
             <Skeleton.Image active={true} />
@@ -54,7 +54,7 @@ const CardProductSkeleton: FC<any> = () => {
           <Skeleton active />
         </Card>
       </Col>
-      <Col md={4} xl={4}>
+      <Col xs={12} md={12} lg={4} xl={4}>
         <Card className="card_product">
           <Space>
             <Skeleton.Image active={true} />

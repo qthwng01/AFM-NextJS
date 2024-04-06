@@ -1,14 +1,13 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
-import { Popover } from 'antd'
+import React, { useState, useRef, useEffect } from 'react'
+import { Popover, Badge } from 'antd'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { DataServices } from '@/constants/DataServices'
 import Link from 'next/link'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/libs/firebase/FirebaseConfig'
-import { Badge } from 'antd'
 import useUser from '@/auth/useUser'
 import useSWR from 'swr'
 import { useAppSelector } from '@/store/hook/hooks'
@@ -21,25 +20,30 @@ import logo from '@/app/assets/logo.png'
 import user from '@/app/assets/user.png'
 import exit from '@/app/assets/exit.png'
 
-function Header() {
+const Header: React.FC = () => {
   const router = useRouter()
   const isUser = useUser()
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
   const [popoverVisible, setPopoverVisible] = useState<boolean>(false)
   const [countQuantity, setCountQuantity] = useState<string>('')
+  const [isSearch, setIsSearch] = useState<boolean>(false)
+  const [isMenuMobile, setIsMenuMobile] = useState<boolean>(false)
   const menuListRef = useRef<HTMLDivElement | null>() as React.MutableRefObject<HTMLInputElement>
   const buttonRef = useRef<HTMLDivElement | null>() as React.MutableRefObject<HTMLInputElement>
   const cartItems = useAppSelector(CartItems)
 
+  // Check cart-quantity exists
   const cartQuantity =
     typeof window !== 'undefined' && localStorage.getItem('cart-quanity') !== null
       ? JSON.parse(localStorage.getItem('cart-quanity') as string)
       : ''
+
   useEffect(() => {
     setCountQuantity(cartQuantity)
   }, [cartItems])
+  // End check cart-quantity
 
-  //handle menu button
+  // handle menu button
   const handleClickOutside = (e: MouseEvent) => {
     if (!menuListRef?.current?.contains(e.target as HTMLElement) && !buttonRef?.current?.contains(e.target as HTMLElement)) {
       setMenuOpen(false)
@@ -49,17 +53,33 @@ function Header() {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   })
-  //end handle menu button
+  // end handle menu button
 
-  //handle logout
+  // handle logout
   const handleLogout = async () => {
-    await signOut(auth)
-    const response = await fetch(`/api/logout`, {
-      method: 'POST',
-    })
-    if (response.status === 200) {
-      window.location.reload()
+    try {
+      await signOut(auth)
+      const response = await fetch(`/api/logout`, {
+        method: 'POST',
+      })
+      if (response.ok) {
+        window.location.reload()
+      } else {
+        throw new Error(`Logout failed with status ${response.status}`)
+      }
+    } catch (err) {
+      console.log(err)
     }
+  }
+
+  // handle toggle search
+  const toggleSearch = () => {
+    setIsSearch(!isSearch)
+  }
+
+  // handle toggle menu mobile
+  const toggleMenuMobile = () => {
+    setIsMenuMobile(!isMenuMobile)
   }
 
   // fetching data
@@ -69,9 +89,10 @@ function Header() {
     revalidateOnReconnect: false,
   })
 
+  // Menu popover
   const content = (
     <ul className="menu_ly">
-      {data?.data.map((item: BrandProps) => (
+      {data?.data?.map((item: BrandProps) => (
         <li
           className="menu_ly_li"
           key={item.id}
@@ -133,50 +154,6 @@ function Header() {
             </div>
           </Popover>
           <SearchForm />
-          {/* <div className="main_header_search">
-            <form className="main_header_search_form">
-              <div className="search_form_wrap">
-                <input placeholder="Tìm kiếm..." type="search" id="input_search" />
-                <button type="button" className="search_form_btn">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className="search_result" id='scrollbar_rs'>
-                <ul className="search_result_list">
-                  <li className="search_result_item">
-                    <Link href={''} className="a_item">
-                      <Image
-                        src={
-                          'https://static.dimuadi.vn/prod/product/image/uynf7kcgg1bpzxskqji0m_z5055956448203a4761650905923644aa170e53ab99a42.jpg'
-                        }
-                        width={55}
-                        height={55}
-                        alt=""
-                        className="image"
-                      />
-                    </Link>
-                    <div className="info_item">
-                      <span className="name">Tảo xanh</span>
-                      <span className="price">100.000</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </form>
-          </div> */}
           <div className="main_header_login">
             {!isUser ? (
               <Link href={'/login'} className="button_login">
@@ -219,17 +196,14 @@ function Header() {
               <ul className="info_user_list">
                 <li className="info_user_item">
                   <Link href={`/infomation/${isUser?.uid}`} onClick={() => setMenuOpen(false)}>
-                    <Image src={user} width={24} height={24} alt="user"></Image>Tài khoản
+                    <Image src={user} width={24} height={24} alt="user"></Image>
+                    Tài khoản
                   </Link>
                 </li>
-                {/* <li className="info_user_item" onClick={() => setMenuOpen(false)}>
-                  <Link href={''}>
-                    <Image src={order} width={24} height={24} alt="order"></Image>Đơn hàng
-                  </Link>
-                </li> */}
                 <li className="info_user_item" onClick={() => setMenuOpen(false)}>
                   <span onClick={handleLogout}>
-                    <Image src={exit} width={24} height={24} alt="logout"></Image>Đăng xuất
+                    <Image src={exit} width={24} height={24} alt="logout"></Image>
+                    Đăng xuất
                   </span>
                 </li>
               </ul>
@@ -258,88 +232,84 @@ function Header() {
           </div>
         </div>
         <div className="container main__header-mobile">
-          <div>Menu</div>
-          <div className="main_header_logo">
-            <Link href="/">
-              <Image src={logo} alt="logo" />
-            </Link>
-          </div>
-          {/* <div className="main_header_login">
-            {!isUser ? (
-              <Link href={'/login'} className="button_login">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                  />
-                </svg>
-                Đăng nhập
-              </Link>
-            ) : (
-              <span ref={buttonRef} className="button_login" onClick={() => setMenuOpen((prev) => !prev)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                  />
-                </svg>
-                {isUser?.email}
+          {isSearch ? (
+            <React.Fragment>
+              <SearchForm />
+              <span className="i__menu-toggle" onClick={toggleSearch}>
+                Close
               </span>
-            )}
-            <div ref={menuListRef} className={`info_user${menuOpen ? ' show_menu' : ''}`}>
-              <ul className="info_user_list">
-                <li className="info_user_item">
-                  <Link href={`/infomation/${isUser?.uid}`} onClick={() => setMenuOpen(false)}>
-                    <Image src={user} width={24} height={24} alt="user"></Image>Tài khoản
-                  </Link>
-                </li>
-                <li className="info_user_item" onClick={() => setMenuOpen(false)}>
-                  <span onClick={handleLogout}>
-                    <Image src={exit} width={24} height={24} alt="logout"></Image>Đăng xuất
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div> */}
-          <div className="main_header_cart">
-            <Badge count={countQuantity}>
-              <div className="main_header_cart_inside" onClick={() => router.push('/cart')}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                  />
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <span className="i__menu" onClick={toggleMenuMobile}>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 6H20M4 12H20M4 18H20" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
+              </span>
+              <div className="main_header_logo">
+                <Link href="/">
+                  <Image src={logo} alt="logo" />
+                </Link>
               </div>
-            </Badge>
-          </div>
+              <div className="main_header_cart">
+                <span className="i__search" onClick={toggleSearch}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32">
+                    <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
+                      <g fill="#000" transform="translate(-256 -1139)">
+                        <path d="M269.46 1163.45c-6.29 0-11.389-5.01-11.389-11.2 0-6.19 5.099-11.21 11.389-11.21 6.29 0 11.39 5.02 11.39 11.21 0 6.19-5.1 11.2-11.39 11.2zm18.228 5.8l-8.259-8.13c2.162-2.35 3.491-5.45 3.491-8.87 0-7.32-6.026-13.25-13.46-13.25-7.434 0-13.46 5.93-13.46 13.25 0 7.31 6.026 13.24 13.46 13.24a13.52 13.52 0 008.472-2.96l8.292 8.16c.405.4 1.06.4 1.464 0 .405-.39.405-1.04 0-1.44z"></path>
+                      </g>
+                    </g>
+                  </svg>
+                </span>
+                <Badge count={countQuantity}>
+                  <span className="main_header_cart_inside" onClick={() => router.push('/cart')}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                      />
+                    </svg>
+                  </span>
+                </Badge>
+              </div>
+            </React.Fragment>
+          )}
         </div>
+        <React.Fragment>
+          <div className={isMenuMobile ? `list__menu-mobile-active` : `list__menu-mobile-unactive`}>
+            <div className="close__menu-mobile">
+              <span id="close" onClick={toggleMenuMobile}>
+                <svg width="30" height="30" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 21.32L21 3.32001" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M3 3.32001L21 21.32" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </div>
+            <ul className="list__menu">
+              {data?.data?.map((item: BrandProps) => (
+                <li
+                  className="item__menu-mobile"
+                  key={item.id}
+                  onClick={() => {
+                    setIsMenuMobile(!isMenuMobile)
+                    router.push(`/product?category_id=${item?.id}&page=1`)
+                  }}
+                >
+                  <span>{item?.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </React.Fragment>
       </div>
-      {/* <SearchForm /> */}
     </header>
   )
 }

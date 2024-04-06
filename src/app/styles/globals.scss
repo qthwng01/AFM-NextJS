@@ -50,7 +50,7 @@ a:hover {
 }
 
 .spin_content {
-  height: 30vw;
+  height: 50vw;
   padding: 50px;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 4px;
@@ -75,12 +75,52 @@ a:hover {
   .main_header .main_header_logo {
     padding-right: 0;
   }
+  .main__header-mobile .i__menu {
+    display: inline;
+    width: 84.6px;
+  }
+  .main__header-mobile .main_header_cart .i__search {
+    display: inline;
+    padding-right: 20px;
+  }
+  .main__header-mobile .main_header_search .main_header_search_form {
+    max-width: none;
+    padding: 0;
+  }
+  .main__header-mobile .main_header_search .main_header_search_form .search_result {
+    width: 100%;
+  }
+  .main__header-mobile .main_header_search .main_header_search_form #input_search {
+    border: 1px solid #fff;
+  }
   .main_header .main_header_cart {
     padding-left: 0;
-  } 
-  // .main_header .main_header_search {
-  //   display: none;
-  // }
+  }
+  .main_header .list__menu-mobile-active {
+    padding: 1rem;
+    transform: translateX(0);
+    opacity: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 80%;
+    max-width: 100%;
+    background-color: #fff;
+    transition: all linear 0.3s;
+  }
+  .main_header .list__menu-mobile-unactive {
+    height: 0;
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  .main_header .list__menu-mobile-active .list__menu {
+    margin-top: 2rem;
+  }
+  .main_header .list__menu-mobile-active .item__menu-mobile {
+    margin-bottom: 1.5rem;
+  }
   .main_header_logo .main_header_logo img {
     width: 180px;
     height: 30px;
@@ -95,8 +135,8 @@ a:hover {
   .top_header {
     display: none;
   }
-  .slider_second {
-    display: flex;
+  .slider_ly .slider_first {
+    padding: 0 5px;
   }
   .slider_top,
   .slider_bottom {
@@ -110,8 +150,6 @@ a:hover {
   }
   .voucher_ly .voucher_items {
     flex-wrap: wrap;
-    flex-direction: column;
-    align-items: flex-start;
   }
   .voucher_ly .voucher_detail {
     width: 100%;
@@ -121,7 +159,13 @@ a:hover {
     height: calc((300px * 5) + 200px);
   }
   .footer_ly .footer_top {
-    padding: 22px 5px 22px 5px;
+    padding: 4rem 0.5rem 2rem;
+  }
+  .footer_top_inside .form_top_inside .newsletter {
+    width: 65%;
+  }
+  .footer_top_inside .form_top_inside .submit_form {
+    width: 30%;
   }
   .footer_bottom {
     text-align: center;

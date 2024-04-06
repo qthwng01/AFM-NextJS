@@ -79,7 +79,7 @@ function TopProduct() {
               <div className="top_product_list">
                 <Row gutter={[10, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
                   {data?.data?.map((item: ProductProps) => (
-                    <Col span={4} key={item.id}>
+                    <Col xs={12} md={12} lg={4} xl={4} key={item.id}>
                       <CardProduct
                         className="card_product_sug"
                         id={item.id}

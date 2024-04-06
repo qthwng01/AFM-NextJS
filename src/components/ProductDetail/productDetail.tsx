@@ -66,7 +66,7 @@ const ProductDetail = ({ data }: ProductProps) => {
         <div className="product_info">
           {contextHolder}
           <Row gutter={{ xs: 8, sm: 16, md: 16, lg: 16 }}>
-            <Col span={10}>
+            <Col lg={10} xl={10}>
               <div className="thumbnail_image">
                 <div className="top_image">
                   <Swiper
@@ -107,7 +107,7 @@ const ProductDetail = ({ data }: ProductProps) => {
                 <div className="bottom_image"></div>
               </div>
             </Col>
-            <Col span={14}>
+            <Col lg={14} xl={14}>
               <div className="desc_product">
                 <span className="brand">Thương hiệu: {item?.brand ? item?.brand : 'Đang cập nhật'}</span>
                 <h2>{item?.name}</h2>

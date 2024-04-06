@@ -8,7 +8,7 @@
 
   img {
     width: 100%;
-    max-height: 360px;
+    height: 360px;
     border-radius: 10px;
   }
 }
@@ -46,4 +46,29 @@
 .pagination {
     padding-top: 1rem;
     float: right;
+}
+
+// sm
+// @media (min-width: 640px) {
+// }
+@media only screen and (max-width: 640px) {
+}
+
+// md
+/* Mobile: width < 740px */
+@media only screen and (max-width: 740px) {
+  .top_product_ly {
+    padding: 1.5rem;
+  }
+  .top_product_ly .banner img {
+    height: 200px;
+  }
+}
+
+// lg
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+// xl
+@media (min-width: 1024px) and (max-width: 1239px) {
 }

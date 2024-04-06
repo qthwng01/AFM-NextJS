@@ -41,12 +41,12 @@ function BrandHot({ brandHot }: BrandList) {
           }}
           breakpoints={{
           640: {
-            slidesPerView: 8,
+            slidesPerView: 4,
             spaceBetween: 10,
           },
           768: {
-            slidesPerView: 4,
-            spaceBetween: 10,
+            slidesPerView: 5,
+            spaceBetween: 20,
           },
           1024: {
             slidesPerView: 8,

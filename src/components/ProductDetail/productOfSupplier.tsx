@@ -36,7 +36,7 @@ const ProductOfSupplier = ({ companyId }: ISupplierProps) => {
     <div className="item_suggestions">
       <Row gutter={[8, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
         {data?.data?.map((item: ProductProps, key: number) => (
-          <Col lg={4} xl={4} key={key}>
+          <Col xs={12} md={12} lg={4} xl={4} key={key}>
             <CardProduct
               className=""
               id={item.id}

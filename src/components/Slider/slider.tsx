@@ -24,15 +24,15 @@ const Slider = () => {
                 spaceBetween={10}
                 breakpoints={{
                   640: {
-                    slidesPerView: 3,
+                    slidesPerView: 1,
                     spaceBetween: 10,
                   },
                   768: {
-                    slidesPerView: 3,
+                    slidesPerView: 1,
                     spaceBetween: 10,
                   },
                   1024: {
-                    slidesPerView: 3,
+                    slidesPerView: 1,
                     spaceBetween: 10,
                   },
                 }}

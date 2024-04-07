@@ -54,3 +54,27 @@
 .signup:hover {
   color: var(--primary-color);
 }
+
+
+// sm
+@media only screen and (max-width: 640px) {
+}
+
+// md
+@media only screen and (max-width: 740px) {
+  #complex-form {
+    width: 85%;
+    max-width: 85%;
+  }
+  .not_account {
+    margin-left: 15%;
+  }
+}
+
+// lg
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+// xl
+@media (min-width: 1024px) and (max-width: 1239px) {
+}

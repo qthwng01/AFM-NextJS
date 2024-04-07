@@ -1,14 +1,16 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Row, Col, ConfigProvider } from 'antd'
 import LeftFilter from './leftFilter'
 import RightProduct from './rightProduct'
 import './allProduct.scss'
 
 function AllProduct() {
+  const [isFilterMobile, setIsFilterMobile] = useState(false)
+
   return (
-    <div className="all_product">
+    <div className={isFilterMobile ? 'all_product is__overlay' : 'all_product'}>
       <div className="container all_product_inside">
         <ConfigProvider
           theme={{
@@ -19,12 +21,14 @@ function AllProduct() {
           }}
         >
           <Row gutter={{ xs: 8, sm: 16, md: 16, lg: 16 }}>
-            <Col span={6}>
-              <LeftFilter />
+            <Col xs={24} md={24} lg={6} xl={6}>
+              <LeftFilter setIsFilterMobile={setIsFilterMobile} isFilterMobile={isFilterMobile} />
             </Col>
-            <Col span={18}>
-              <RightProduct />
-            </Col>
+            {isFilterMobile ? '' : (
+              <Col xs={24} md={24} lg={18} xl={18}>
+                <RightProduct setIsFilterMobile={setIsFilterMobile} isFilterMobile={isFilterMobile} />
+              </Col>
+            )}
           </Row>
         </ConfigProvider>
       </div>

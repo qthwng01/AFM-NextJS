@@ -6,6 +6,7 @@ import { CategoryProps, BrandProps } from '@/app/types'
 import useSWR from 'swr'
 import { useRouter, useSearchParams } from 'next/navigation'
 import useFetcher from '@/hooks/useFetcher'
+import { IFilterMobileProps } from '@/app/types'
 import filter from '@/app/assets/filter.svg'
 
 interface FilterProps {
@@ -14,7 +15,7 @@ interface FilterProps {
 
 const { Search } = Input
 
-function LeftFilter() {
+const LeftFilter: React.FC<IFilterMobileProps> = ({ setIsFilterMobile, isFilterMobile }) => {
   const router = useRouter()
   const getSearchParams = useSearchParams()
   const brandName = getSearchParams.get('brand_name')
@@ -27,14 +28,14 @@ function LeftFilter() {
   const pages = 382
 
   // Fetching Categories
-  const { data: dataCate, isLoading: isLoadingCate } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, useFetcher, {
+  const { data: dataCate } = useSWR(`${process.env.NEXT_PUBLIC_URL_CATEGORY}`, useFetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   })
 
   // Fetching Brands
-  const { data: dataBrand, isLoading: isLoadingBrand } = useSWR(
+  const { data: dataBrand } = useSWR(
     `${process.env.NEXT_PUBLIC_URL_BRAND}?page=1&page_size=${pages}`,
     useFetcher,
     {
@@ -71,6 +72,7 @@ function LeftFilter() {
       return alert('Hãy chọn loại và thương hiệu!')
     }
     updateFilter(brandValue, categoryValue)
+    setIsFilterMobile(!isFilterMobile)   
   }
 
   const updateFilter = (brandId: number, categoryId: number) => {
@@ -116,7 +118,7 @@ function LeftFilter() {
   }, [searchTerm])
 
   return (
-    <div className="filter_ly">
+    <div className={isFilterMobile ? "filter__mobile" : "filter_ly"}>
       <form className="search_form" onSubmit={handleFilter}>
         <div className="filter_ly_top">
           <Image src={filter} width={25} height={25} alt="filter icon" />

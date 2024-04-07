@@ -313,3 +313,12 @@
     height: 30px;
   }
 }
+
+.list__menu-mobile-active {
+  visibility: hidden;
+  height: 0;
+}
+
+.user__mobile {
+  display: none;
+}

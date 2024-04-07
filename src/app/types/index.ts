@@ -252,3 +252,8 @@ export interface IDataOrder extends IOrder {
   productPrice: number
   productName: string
 }
+
+export interface IFilterMobileProps {
+  isFilterMobile: boolean
+  setIsFilterMobile: React.Dispatch<React.SetStateAction<boolean>>
+}

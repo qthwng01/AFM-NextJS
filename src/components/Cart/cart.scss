@@ -205,3 +205,31 @@
     }
   }
 }
+
+// sm
+@media only screen and (max-width: 640px) {
+}
+
+// md
+@media only screen and (max-width: 740px) {
+  .cart_ly {
+    padding: 1rem;
+  }
+  .cart_ly .cart_inside {
+    padding: 1rem;
+  }
+  .cart_right {
+    padding-left: 0;
+  }
+  .product_details {
+    margin-left: 1rem;
+  }
+}
+
+// lg
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+// xl
+@media (min-width: 1024px) and (max-width: 1239px) {
+}

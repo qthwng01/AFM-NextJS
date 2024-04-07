@@ -94,7 +94,7 @@ function Cart() {
           }}
         >
           <Row gutter={{ xs: 8, sm: 16, md: 16, lg: 16 }}>
-            <Col span={16}>
+            <Col xs={24} md={24} lg={16} xl={16}>
               <div className="cart_left">
                 <div className="cart_left_top">
                   <h2>Giỏ hàng</h2>
@@ -106,12 +106,12 @@ function Cart() {
                   <div className="data_cart_left_bottom" id="scrollbar">
                     {data?.map((item) => (
                       <Row gutter={{ xs: 8, sm: 16, md: 16, lg: 16 }} key={item?.productId} className="data_cart_left">
-                        <Col span={4}>
+                        <Col xs={6} md={6} lg={4} xl={4}>
                           <div className="product_image">
                             <Image src={item?.productImage} width={100} height={100} alt="image" />
                           </div>
                         </Col>
-                        <Col span={6}>
+                        <Col xs={18} md={18} lg={6} xl={6}>
                           <div className="product_details">
                             <p className="product_detail_name" title={item?.productName}>
                               {item?.productName}
@@ -120,7 +120,7 @@ function Cart() {
                             <Link href={`/product/${convertSlug(item?.productName)}-${item?.productId}.html`}>Xem chi tiết</Link>
                           </div>
                         </Col>
-                        <Col span={4}>
+                        <Col xs={8} md={8} lg={4} xl={4}>
                           <div className="quantity">
                             <span className="minus" onClick={() => handleDecreaseAmount(item?.productId)}>
                               -
@@ -131,12 +131,12 @@ function Cart() {
                             </span>
                           </div>
                         </Col>
-                        <Col span={4}>
+                        <Col xs={6} md={6} lg={4} xl={4}>
                           <div className="price">
                             <span>{formatPrice(item.productPrice)}</span>
                           </div>
                         </Col>
-                        <Col span={4}>
+                        <Col xs={6} md={6} lg={4} xl={4}>
                           <div className="total">
                             <span>{formatPrice(item.productPrice * item.quantity)}</span>
                           </div>
@@ -152,7 +152,7 @@ function Cart() {
                 </div>
               </div>
             </Col>
-            <Col span={8}>
+            <Col xs={24} md={24} lg={8} xl={8}>
               <div className="cart_right">
                 <div className="cart_right_top">
                   <h2>Tổng hoá đơn</h2>

@@ -101,14 +101,6 @@ const Login: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Item>
-              {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 2, span: 20 }}>
-                <Form.Item name="forgot-password">
-                  <a className="login-form-forgot" href="#">
-                    Quên mật khẩu?
-                  </a>
-                </Form.Item>
-                {error ? <p style={{ color: 'red', marginTop: '10px' }}>{error}</p> : ''}
-              </Form.Item> */}
               <Form.Item name="submit" wrapperCol={{ offset: 2, span: 20 }}>
                 {error ? <p style={{ color: 'red', marginTop: '10px' }}>{error}</p> : ''}
                 {!loading ? (

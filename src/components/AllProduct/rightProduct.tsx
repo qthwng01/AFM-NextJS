@@ -9,9 +9,9 @@ import { ProductProps } from '@/app/types'
 import { formatPrice } from '@/utils/formatCurrency'
 import { convertSlug } from '@/utils/convertSlugUrl'
 import useFetcher from '@/hooks/useFetcher'
-//import prod from '@/app/assets/prod.jpg'
+import { IFilterMobileProps } from '@/app/types'
 
-function RightProduct() {
+const RightProduct: React.FC<IFilterMobileProps> = ({ setIsFilterMobile, isFilterMobile }) => {
   const searchParams = useSearchParams()
   const brandId = searchParams.get('brand_id')
   const categoryId = searchParams.get('category_id')
@@ -43,7 +43,7 @@ function RightProduct() {
   }, [brandId, categoryId, pageId])
 
   // Fetching Products
-  const { data, isLoading, error } = useSWR(
+  const { data } = useSWR(
     `${process.env.NEXT_PUBLIC_URL_PRODUCT}?brand_id=${brandValue}${
       categoryValue !== '' && categoryValue !== '0' ? `&category_id=${categoryValue}` : ''
     }&page=${pageValue}&page_size=12`,
@@ -63,7 +63,6 @@ function RightProduct() {
   // Data sorted
   const sortedData = useMemo(() => {
     if (!data?.data) return []
-
     return [...data.data].sort((a, b) => {
       if (sortOption === 'price_ascending') {
         return a.price - b.price
@@ -89,6 +88,9 @@ function RightProduct() {
 
   return (
     <div className="product_right_ly">
+      <div className="btn-filter__mobile">
+        <span className="btn__filter" onClick={() => setIsFilterMobile(!isFilterMobile)}>Bộ lọc</span>
+      </div>
       <div className="product_right_top">
         <span>
           Hiển thị từ {data?.paging ? <strong>{data?.paging?.pageSize * data?.paging?.page}</strong> : ''} của{' '}
@@ -119,7 +121,7 @@ function RightProduct() {
           <Row gutter={[10, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
             {sortedData?.length > 0
               ? sortedData?.map((item: ProductProps) => (
-                  <Col span={6} key={item?.id}>
+                  <Col xs={12} md={12} lg={6} xl={6} key={item?.id}>
                     <Card className="card_all_product">
                       <div className="image_all_product">
                         <Link href={`/product/${convertSlug(item?.name)}-${item?.id}.html`}>

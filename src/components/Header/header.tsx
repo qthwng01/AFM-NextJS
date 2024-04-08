@@ -90,7 +90,7 @@ const Header: React.FC = () => {
 
   // handle redirect to infomation
   const RedirectInformation = (uid: string) => {
-    router.push(`/login${uid}`)
+    router.push(`/infomation/${uid}`)
     setIsMenuMobile(!isMenuMobile)
   }
 
@@ -322,15 +322,27 @@ const Header: React.FC = () => {
             </ul>
             <div className="user__mobile">
               {isUser?.email ? (
-                <h4 className="btn__user-mobile" onClick={() => RedirectInformation(isUser.uid)}>
-                  {isUser?.email}
-                </h4>
+                <>
+                  <h4 className="btn__user-mobile" onClick={() => RedirectInformation(isUser.uid)}>
+                    {isUser?.email}
+                    {/* <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                        stroke="#000000"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg> */}
+                  </h4>
+                  <span onClick={handleLogout}>Đăng xuất</span>
+                </>
               ) : (
                 <h4 className="btn__user-mobile" onClick={loginMobile}>
                   Đăng nhập
                 </h4>
               )}
-              <span className="i__user-mobile">
+              {/* <span className="i__user-mobile">
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
@@ -340,7 +352,7 @@ const Header: React.FC = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </span>
+              </span> */}
             </div>
           </div>
         </React.Fragment>

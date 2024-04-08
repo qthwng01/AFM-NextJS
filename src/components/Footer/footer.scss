@@ -74,3 +74,25 @@
   align-items: center;
   margin-left: 4px;
 }
+
+// sm
+@media only screen and (max-width: 640px) {
+}
+
+// md
+@media only screen and (max-width: 740px) {
+  .footer_top_inside .form_top_inside .newsletter {
+    width: 50%;
+  }
+  .footer_top_inside .form_top_inside .submit_form {
+    width: 25%;
+  }
+}
+
+// lg
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+// xl
+@media (min-width: 1024px) and (max-width: 1239px) {
+}

@@ -46,3 +46,28 @@
     text-align: center;
   }
 }
+
+// sm
+@media only screen and (max-width: 640px) {
+}
+
+// md
+@media only screen and (max-width: 740px) {
+  .info_ly {
+    padding: 1rem;
+  }
+  .info_detail {
+    padding: 0 20px;
+  }
+  .input__profile {
+    width: 100% !important;
+  }
+}
+
+// lg
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+// xl
+@media (min-width: 1024px) and (max-width: 1239px) {
+}

@@ -166,6 +166,9 @@ a:hover {
     align-items: center;
     justify-content: space-between;
   }
+  .main_header .list__menu-mobile-active .user__mobile .btn__user-mobile {
+    color: var(--primary-color)
+  }
   .main_header_logo .main_header_logo img {
     width: 180px;
     height: 30px;

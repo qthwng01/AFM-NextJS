@@ -95,13 +95,14 @@ function Profile() {
         )}
         <Form onFinish={updateProfileHandler} form={form} name="validateOnly" layout="vertical" autoComplete="off">
           <Form.Item name="name" label="Tên">
-            <Input style={{ width: 500 }} value={name} size="large" type="text" onChange={handleChangeName} />
+            <Input className="input__profile" style={{ width: 500 }} value={name} size="large" type="text" onChange={handleChangeName} />
           </Form.Item>
           <Form.Item name="email" label="Email">
-            <Input style={{ width: 500 }} name="input-email" disabled size="large" type="text" />
+            <Input className="input__profile" style={{ width: 500 }} name="input-email" disabled size="large" type="text" />
           </Form.Item>
           <Form.Item name="password" label="Mật khẩu">
             <Input
+              className="input__profile"
               style={{ width: 500 }}
               name="input-password"
               value={password}
@@ -116,7 +117,7 @@ function Profile() {
           </span>
           <Form.Item name="button">
             <Space>
-              <Button className='btn_change_password' style={{ width: 150 }} type="primary" htmlType="submit" disabled={!submittable}>
+              <Button className="btn_change_password" style={{ width: 150 }} type="primary" htmlType="submit" disabled={!submittable}>
                 Lưu
               </Button>
             </Space>

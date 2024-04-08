@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react'
-import { Row, Col, Tabs, ConfigProvider } from 'antd'
+import React, {useState, useEffect } from 'react'
+import { Row, Col, Tabs, ConfigProvider, RadioChangeEvent } from 'antd'
 import Order from './order/order'
 import Profile from './profile/profile'
 import './info.scss'
@@ -21,7 +21,29 @@ const DataTab = [
   // },
 ]
 
+type TabPosition = 'left' | 'right' | 'top' | 'bottom';
+
 const Info = () => {
+  const [tabPosition, setTabPosition] = useState<TabPosition>('left');
+
+  const changeTabPosition = (position: any) => {
+    setTabPosition(position);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 740) {
+        changeTabPosition('top');
+      } else {
+        changeTabPosition('left');
+      }
+    };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <ConfigProvider
       theme={{
@@ -33,10 +55,10 @@ const Info = () => {
       <div className="info_ly">
         <div className="container info_inside">
           <Row gutter={[16, { xs: 8, sm: 16, md: 16, lg: 16 }]}>
-            <Col span={24}>
+            <Col xs={24} md={24} lg={24} xl={24}>
               <div className="info_detail">
                 <Tabs
-                  tabPosition="left"
+                  tabPosition={tabPosition}
                   items={DataTab?.map((_, i) => {
                     const id = String(i + 1)
                     return {
